@@ -1,0 +1,312 @@
+
+<div class="container-fluid">
+    <nav class="navbar bg-warning fixed-top" style="margin-left: 90px;">
+        <span style="cursor:pointer;" *ngIf="action == 'Add' || action == 'Edit'" (click)="onlist()"><i class="fas fa-chevron-left"></i></span>
+        <a> Work Order</a>
+        <span class="navbar-text p-0">
+            <span style="cursor:pointer;" class="fas fa-sliders-h float-right" *ngIf="action == 'List'" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></span>
+            <span (click)="update()" style="cursor:pointer;" *ngIf="action == 'Add' || action == 'Edit'" class="float-right">Save</span>
+        </span>
+    </nav>
+    <div id="list">
+        <div class="container-content-start p-0 collapse" id="collapseExample">
+            <div class="row">
+                <div class="col">
+                    <div id="col-content" class="btn-cont">
+                        <button class="status-btn text-dark">Filter By</button>
+                        <button class="filter-btn" (click)="filter('Location')">Location</button>
+                        <button class="filter-btn" (click)="filter('AssignedEmployee')">AssignedEmployee</button>
+                        <button class="filter-btn" (click)="filter('MaintenanceIssueStatus')">Status</button>
+                        <button class="filter-btn" (click)="filter('MaintenancePriority')">Priority</button>
+                        <button class="filter-btn" (click)="filter('Room')">Room</button>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-cont pt-0">
+                <button class="status-btn text-dark" (click)="sort()">Sort By: </button><span> {{sortProperty}}</span>
+            </div>
+        </div>
+        <div class="row" [ngClass]="{ 'd-none' : filterString == '' }">
+            <div class="col mb-1">
+                <span>Filtered By: {{filterString}} </span><button class="btn btn-sm btn-outline-dark" (click)="doFilter('',null)">Remove filter </button>
+            </div>
+        </div>
+        <div style="padding-bottom:40px;">
+            <div class="container-content-start" style="cursor: pointer;" *ngFor="let item of maintenanceRequestList" [ngClass]="{ 'prioritylow' : item.MaintenancePriorityId == 3,'prioritymedium' : item.MaintenancePriorityId == 2,'priorityhigh' : item.MaintenancePriorityId == 1 }">
+                <div ngbDropdown placement="bottom-right" class="d-inline-block float-right">
+                    <button class="btn-sm btn btn-outline-secondary" id="dropdownBasic2" ngbDropdownToggle></button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                        <!--<button ngbDropdownItem (click)="oncompleted(item)">Completed</button>-->
+                        <button ngbDropdownItem (click)="onupdate(item)">Edit</button>
+                        <button ngbDropdownItem (click)="ondelete(item)">Delete</button>
+                    </div>
+                </div>
+                <div class="card-data-container" (click)="onupdate(item)">
+                    <div class="workorder-title title">{{item.Description}}</div>
+                    <div class="card-data"><span class="status" [ngClass]="{ 'pending' : item.MaintenanceIssueStatusId == 1,'completed' : item.MaintenanceIssueStatusId == 2, 'onhold' : item.MaintenanceIssueStatusId == 3 }">{{item.MaintenanceIssueStatusName}}</span>{{item.RoomName}}&nbsp;&nbsp;<i class="fas fa-user"></i>&nbsp;&nbsp;{{item.AssignedEmployeeName}}</div>
+                    <div class="card-data"><i class="fas fa-map-marker-alt"></i>&nbsp; {{item.LocationName}}<i class="fas fa-calendar-alt"></i>&nbsp; {{item.CreatedOnUtc | date: 'dd/MM/yyyy hh:mm'}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="fixed-bottom">
+            <button class="btn-Addreqform" (click)="oncreate()">Create Request <span class="fas fa-plus"></span></button>
+        </div>
+    </div>
+    <div id="add" class="AddReq-form-style pl-2 pr-2" style="display:none; margin-top: 60px;">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="detail-tab" data-toggle="tab" href="#detail" role="tab" aria-controls="detail" aria-selected="true">Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="false">Updates</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="detail" role="tabpanel" aria-labelledby="detail-tab">
+                <div class="AddReq-form">
+                    <form class="pt-2" novalidate [formGroup]="maintenanceRequestForm">
+                        <div class="form-group">
+                            <label for="Property">Property<small class="text-danger">*</small></label>
+                            <div class="btn-cont">
+                                <button class="status-btn" [ngClass]="{ 'status-active' : maintenanceRequestForm.controls.LocationId.value == item.Id  }" *ngFor="let item of locationList" (click)="locationChange(item)">{{item.Name}}</button>
+                            </div>
+                            <div *ngIf="maintenanceRequestForm.controls.LocationId.invalid && (maintenanceRequestForm.controls.LocationId.dirty || maintenanceRequestForm.controls.LocationId.touched)">
+                                <small class="text-danger" *ngIf="maintenanceRequestForm.controls.LocationId.errors.required">
+                                    Location is required.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Room">Room<small class="text-danger">*</small></label>
+                            <select class="form-control" formControlName="RoomId" (ngModelChange)="updateRoomSelect(roomList, maintenanceRequestForm.controls.RoomId.value, maintenanceRequestForm.controls.RoomName)">
+                                <option value="0">Select Room...</option>
+                                <option *ngFor="let item of roomList" [value]="item.Id">{{item.Name}}</option>
+                            </select>
+                            <div *ngIf="maintenanceRequestForm.controls.RoomId.invalid && (maintenanceRequestForm.controls.RoomId.dirty || maintenanceRequestForm.controls.RoomId.touched)">
+                                <small class="text-danger" *ngIf="maintenanceRequestForm.controls.RoomId.errors.required">
+                                    Room is required.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Priority">Priority<small class="text-danger">*</small></label>
+                            <div class="btn-cont">
+                                <button class="status-btn" [ngClass]="{ 'status-active' : maintenanceRequestForm.controls.MaintenancePriorityId.value == item.Id  }" *ngFor="let item of maintenancePriorityList" (click)="priorityChange(item)">{{item.Name}}</button>
+                            </div>
+                            <div *ngIf="maintenanceRequestForm.controls.MaintenancePriorityId.invalid && (maintenanceRequestForm.controls.MaintenancePriorityId.dirty || maintenanceRequestForm.controls.MaintenancePriorityId.touched)">
+                                <small class="text-danger" *ngIf="maintenanceRequestForm.controls.MaintenancePriorityId.errors.required">
+                                    Priority is required.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Issue To Fix<small class="text-danger">*</small></label>
+                            <textarea class="form-control" formControlName="Description"></textarea>
+                            <div *ngIf="maintenanceRequestForm.controls.Description.invalid && (maintenanceRequestForm.controls.Description.dirty || maintenanceRequestForm.controls.Description.touched)">
+                                <small class="text-danger" *ngIf="maintenanceRequestForm.controls.Description.errors.required">
+                                    Description is required.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Attach Photo</label>
+                            <div class="custom-file">
+                                <input type="file" accept='image/*' class="custom-file-input" id="AddPhotos" (change)="handleFileInput($event.target.files)">
+                                <label class="custom-file-label" for="AddPhotos">Choose file...</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <img [src]="serviceImage.Image" height="200" class="img-fluid img-thumbnail" *ngIf="serviceImage.Image" style="height: 200px; width:200px;" (click)="showImage()">
+                        </div>
+                        <div class="form-group">
+                            <label for="Status">Status<small class="text-danger">*</small></label>
+                            <div class="btn-cont">
+                                <button class="status-btn" [ngClass]="{ 'status-active' : maintenanceRequestForm.controls.MaintenanceIssueStatusId.value == item.Id  }" *ngFor="let item of maintenanceIssueStatusList" (click)="statusChange(item)">{{item.Name}}</button>
+                            </div>
+                            <div *ngIf="maintenanceRequestForm.controls.MaintenanceIssueStatusId.invalid && (maintenanceRequestForm.controls.MaintenanceIssueStatusId.dirty || maintenanceRequestForm.controls.MaintenanceIssueStatusId.touched)">
+                                <small class="text-danger" *ngIf="maintenanceRequestForm.controls.MaintenanceIssueStatusId.errors.required">
+                                    Status is required.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="AssignTo">Assign To<small class="text-danger">*</small></label>
+                            <select class="form-control" formControlName="AssignedEmployeeId" (ngModelChange)="updateEmployeeSelect(employeeList, maintenanceRequestForm.controls.AssignedEmployeeId.value, maintenanceRequestForm.controls.AssignedEmployeeName)">
+                                <option value="0">Assign To...</option>
+                                <option *ngFor="let item of employeeList" [value]="item.Id">{{item.FirstName}}</option>
+                            </select>
+                            <div *ngIf="maintenanceRequestForm.controls.AssignedEmployeeId.invalid && (maintenanceRequestForm.controls.AssignedEmployeeId.dirty || maintenanceRequestForm.controls.AssignedEmployeeId.touched)">
+                                <small class="text-danger" *ngIf="maintenanceRequestForm.controls.AssignedEmployeeId.errors.required">
+                                    Assigned Employee is required.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group mb-0">
+                            <div class="row">
+                                <div class="col pl-0 pr-1">
+                                    <button class="btn btn-outline-dark btn-block" (click)="onlist()">Cancel</button>
+                                </div>
+                                <div class="col p-0">
+                                    <button class="btn btn-primary btn-block" (click)="create()" *ngIf="action == 'Add'">Add Request</button>
+                                    <button class="btn btn-primary btn-block" (click)="update()" *ngIf="action == 'Edit'">Save Request</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="update" role="tabpanel" aria-labelledby="update-tab">
+                <div class="form-group" style="padding-bottom: 200px;">
+                    <div class="card mb-3" *ngFor="let item of updateList">
+                        <div class="card-header p-1">
+                            <div>
+                                {{item.Comment}}
+                            </div>
+                            <small class="float-right">
+                                Created By: {{item.CreatedByName}}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <form class="pt-2" novalidate [formGroup]="maintenanceCommentForm">
+                    <div class="form-group mb-0 fixed-bottom">
+                        <div class="pl-2 pr-2">
+                            <div class="input-group mb-2">
+                                    <input type="text" class="form-control" formControlName="Comment">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" (click)="createComment()">Send</button>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="workOrderModal" tabindex="-1" role="dialog" aria-labelledby="workOrderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="workOrderModalLabel">{{modalTitle}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="filtermodal">
+                    <div id="filterByLocation" [ngClass]="{ 'd-none' : filterProperty != 'filterByLocation' }">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link bg-light" (click)="doFilter('',null)">None...</a>
+                            </li>
+                            <li class="nav-item" *ngFor="let item of locationList">
+                                <a class="nav-link bg-light" (click)="doFilter('LocationId',item)">{{item.Name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="filterByAssignedEmployee" [ngClass]="{ 'd-none' : filterProperty != 'filterByAssignedEmployee' }">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link bg-light" (click)="doFilter('',null)">None...</a>
+                            </li>
+                            <li class="nav-item" *ngFor="let item of employeeList">
+                                <a class="nav-link bg-light" (click)="doFilter('AssignedEmployeeId',item)">{{item.NickName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="filterByMaintenanceIssueStatus" [ngClass]="{ 'd-none' : filterProperty != 'filterByMaintenanceIssueStatus' }">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link bg-light" (click)="doFilter('',null)">None...</a>
+                            </li>
+                            <li class="nav-item" *ngFor="let item of maintenanceIssueStatusList">
+                                <a class="nav-link bg-light" (click)="doFilter('MaintenanceIssueStatusId',item)">{{item.Name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="filterByMaintenancePriority" [ngClass]="{ 'd-none' : filterProperty != 'filterByMaintenancePriority' }">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link bg-light" (click)="doFilter('',null)">None...</a>
+                            </li>
+                            <li class="nav-item" *ngFor="let item of maintenancePriorityList">
+                                <a class="nav-link bg-light" (click)="doFilter('MaintenancePriorityId',item)">{{item.Name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="filterByRoom" [ngClass]="{ 'd-none' : filterProperty != 'filterByRoom' }">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link bg-light" (click)="doFilter('',null)">None...</a>
+                            </li>
+                            <li class="nav-item" *ngFor="let item of roomList">
+                                <a class="nav-link bg-light" (click)="doFilter('RoomId',item)">{{item.Name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="sortmodal">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link bg-light" (click)="doSort('LocationId')">Location</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link bg-light" (click)="doSort('AssignedEmployeeId')">AssignedEmployee</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link bg-light" (click)="doSort('LocationId')">Location</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link bg-light" (click)="doSort('MaintenanceIssueStatusId')">MaintenanceIssueStatus</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link bg-light" (click)="doSort('MaintenancePriorityId')">MaintenancePriority</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link bg-light" (click)="doSort('RoomId')">Room</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteRequestModal" tabindex="-1" role="dialog" aria-labelledby="deleteRequestModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteRequestModalCenterTitle">Delete Request</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete Request?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Image Attached</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-content">
+            <div class="modal-body">
+                <img [src]="serviceImage.Image" height="200" class="img-fluid img-thumbnail" *ngIf="serviceImage.Image">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

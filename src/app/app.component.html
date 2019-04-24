@@ -1,0 +1,19 @@
+
+
+<mat-sidenav-container class="example-container row">
+    <mat-sidenav #sidenav mode="side" style="margin-top: 51px;" class="bg-dark text-light col-xs-12 col-sm-6 col-lg-3">
+        <mat-nav-list>
+            <a mat-list-item (click)="navigateToPath(sidenav,item.MenuOptionName)" *ngFor="let item of menu">{{item.MenuOptionName}}</a>
+            <mat-divider></mat-divider>
+            <a mat-list-item (click)="logout(sidenav)">Logout</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="col-xs-12 col-sm-6 col-lg-9">
+        <nav class="navbar bg-warning fixed-top">
+            <button class="btn" mat-button (click)="sidenav.toggle()"><i class="fas fa-bars"></i></button>
+        </nav>
+        <p style="margin-top: 60px;">
+            <router-outlet></router-outlet>
+        </p>
+    </mat-sidenav-content>
+</mat-sidenav-container>

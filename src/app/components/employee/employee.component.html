@@ -1,0 +1,146 @@
+
+<div id="employee" class="panel-body parent-tab">
+    <div id="list" class="content list-pane">
+        <div class="col-xs-12 padding-none">
+            <div class="margin-bottom-medium">
+                <h4>
+                    <button class="btn btn-primary show-add" (click)="onadd()">Add</button>
+                </h4>
+            </div>
+        </div>
+        <div class="">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-xs-1 text-center"></th>
+                        <th class="col-xs-2 text-center">NICKNAME</th>
+                        <th class="col-xs-2 text-center">MOBILE</th>
+                        <th class="col-xs-2 text-center">EMAIL</th>
+                        <th class="col-xs-2 text-center">ROLE</th>
+                        <th class="col-xs-2 text-center">LOCATION</th>
+                        <th class="col-xs-1 text-center">ACTIVE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="cursor: pointer" *ngFor="let item of employees">
+                        <td>
+                            <i (click)="onedit(item)" class="fas fa-edit text-info"></i><i (click)="delete()" class="fas fa-trash text-danger"></i>
+                        </td>
+                        <td>{{item.NickName}}</td>
+                        <td>{{item.Mobile}}</td>
+                        <td>{{item.Email}}</td>
+                        <td>{{item.RoleName}}</td>
+                        <td>{{item.LocationName}}</td>
+                        <td>
+                            <input type="checkbox" class="form-control" disabled />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="add" class="content add-pane pl-1 pr-1" style="display: none;">
+        <div>
+            <div class="margin-bottom-medium">
+                <h4>
+                    <span class="fas fa-arrow-left pointer"></span>
+                    <span class="fas fa-user"></span><span>{{employeeForm.controls.FirstName.value}}</span>
+                </h4>
+                <hr />
+            </div>
+        </div>
+        <div>
+            <form novalidate [formGroup]="employeeForm">
+                <div class="form-group">
+                    <label class="control-label col-xs-4">First Name </label>
+                    <div class="col-xs-8">
+                        <div class="input-group col-xs-12">
+                            <input class="form-control" formControlName="FirstName" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-4">Last Name </label>
+                    <div class="col-xs-8">
+                        <div class="input-group col-xs-12">
+                            <input class="form-control" formControlName="LastName" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-4">Nick Name </label>
+                    <div class="col-xs-8">
+                        <div class="input-group col-xs-12">
+                            <input class="form-control" formControlName="NickName" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-4">Mobile </label>
+                    <div class="col-xs-8">
+                        <div class="input-group col-xs-12">
+                            <input class="form-control" formControlName="Mobile" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-4">Email </label>
+                    <div class="col-xs-8">
+                        <div class="input-group col-xs-12">
+                            <input class="form-control" formControlName="Email" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-4">Password </label>
+                    <div class="col-xs-8">
+                        <div class="input-group col-xs-12">
+                            <input class="form-control" formControlName="Password" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-4">Role</label>
+                    <div class="col-xs-8">
+                        <div class="input-group col-xs-12">
+                            <select class="form-control" formControlName="RoleId">
+                                <option *ngFor="let item of roles" value="{{item.Id}}">{{item.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-4">Location</label>
+                    <div class="col-xs-8">
+                        <div class="input-group col-xs-12">
+                            <select class="form-control" formControlName="LocationId">
+                                <option *ngFor="let item of locations" value="{{item.Id}}">{{item.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-4">Favourite Menu</label>
+                    <div class="col-xs-8">
+                        <div class="input-group col-xs-12">
+                            <select class="form-control" formControlName="DefaultMenuId">
+                                <option *ngFor="let item of menus" value="{{item.Id}}">{{item.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-0 row">
+                    <div class="col-6 pl-0 pr-1">
+                        <button class="btn btn-outline-dark btn-block" >Cancel</button>
+                    </div>
+                    <div class="col-6 p-0">
+                        <button class="btn btn-primary btn-block" (click)="add()" *ngIf="action == 'add'">Add Request</button>
+                        <button class="btn btn-primary btn-block" (click)="edit()" *ngIf="action == 'edit'">Save Request</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
