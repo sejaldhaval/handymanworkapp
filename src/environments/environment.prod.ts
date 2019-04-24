@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    api: 'http://handymanworkappapi.azurewebsites.net/api',
-    token: 'http://handymanworkappapi.azurewebsites.net/token',
+    api: 'https://handymanworkappapi.azurewebsites.net/api',
+    token: 'https://handymanworkappapi.azurewebsites.net/token',
 };
