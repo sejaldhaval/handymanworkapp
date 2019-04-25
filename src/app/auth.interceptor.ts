@@ -18,20 +18,19 @@ export class AuthInterceptor implements HttpInterceptor {
                 const clonereq = req.clone({
                     headers: req.headers.set("Authorization", "Bearer " + localStorage.getItem("userToken"))
                 });
-                console.log("clonereq", clonereq);
                 return next.handle(clonereq)
                     .pipe(
                     map((result: any) => {
                         return result;
                     }),
                     catchError((err: any) => {
-                        this.router.navigateByUrl("/signin");
+                        this.router.navigateByUrl("/");
                         return err;
                     })
                     );
             }
             else {
-                this.router.navigateByUrl("/signin");
+                this.router.navigateByUrl("/");
             }
         }
     }

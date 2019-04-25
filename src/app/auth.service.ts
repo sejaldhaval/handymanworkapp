@@ -27,15 +27,23 @@ export class AuthService {
         this.handleSuccess = HttpErrorHandlerService.createHandleSuccess('AuthService');
     }
 
-    login(email: string, password: string) {
+    login(email: string, password: string): Observable<any> {
         var item = "username=" + email + "&password=" + password + "&grant_type=password";
         var reqHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', "No-Auth": 'True' });
-        return this.http.post<any>(this.apiUrl, item, { headers: reqHeader });
+        return this.http.post<any>(this.apiUrl, item, { headers: reqHeader })
+            .pipe(
+            map((result: any) => {
+                localStorage.setItem("userToken", result.access_token);
+                return result;
+            }),
+            catchError(this.handleError<any>('validateFile'))
+        );
     }
 
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('userToken');
-        this.router.navigateByUrl("/signin");
+        localStorage.removeItem('UserId');
+        this.router.navigateByUrl("/");
     }
 }

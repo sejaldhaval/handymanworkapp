@@ -41,6 +41,7 @@ import { AuthInterceptor } from 'src/app/auth.interceptor';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { LocationComponent } from './components/location/location.component';
 import { RoomComponent } from './components/room/room.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
     declarations: [
@@ -54,7 +55,8 @@ import { RoomComponent } from './components/room/room.component';
         DashboardComponent,
         EmployeeComponent,
         LocationComponent,
-        RoomComponent
+        RoomComponent,
+        HomeComponent
     ],
     imports: [
         BrowserModule,

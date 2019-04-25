@@ -45,6 +45,7 @@ export class EmployeeService {
   }
 
   listFiltered(whereString: string): Observable<Employee[]> {
+      console.log(httpOptions);
       return this.http.get<Employee[]>(this.apiUrl + "/listFiltered/" + whereString, httpOptions)
       .pipe(
       map((result: any) => { return this.handleSuccess("listFiltered", result) }),

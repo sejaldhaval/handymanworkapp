@@ -11,6 +11,8 @@ import { DashboardComponent } from './components/admin/dashboard/dashboard.compo
 import { EmployeeComponent } from './components/employee/employee.component';
 import { LocationComponent } from './components/location/location.component';
 import { RoomComponent } from './components/room/room.component';
+import { HomeComponent } from './components/home/home.component';
+
 import { AuthGuard } from 'src/app/auth.guard';
 
 const routes: Routes = [
@@ -23,8 +25,8 @@ const routes: Routes = [
   { path: 'Room', component: RoomComponent, canActivate: [AuthGuard] },
   { path: 'MaintenanceService', component: WorkorderComponent, canActivate: [AuthGuard] },
   { path: 'User', component: UserComponent, canActivate: [AuthGuard] },
-  { path: '', redirectTo: 'signin', pathMatch: 'full' },
-  { path: '**', component: UserComponent },];
+  { path: 'Home', component: HomeComponent },
+  { path: '', redirectTo: 'Home', pathMatch: 'full' }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
