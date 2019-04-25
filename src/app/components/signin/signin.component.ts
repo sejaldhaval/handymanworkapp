@@ -47,7 +47,7 @@ export class SigninComponent implements OnInit {
         if (this.signinForm.valid) {
             this.authService.login(this.signinForm.controls.email.value, this.signinForm.controls.password.value)
                 .subscribe((result: any) => {
-                    this.authService.setToken(result.access_token);
+                    localStorage.setItem("userToken", result.access_token);
                     this.loading = false;
                     this.error = "";
                     this.employeeService.listFiltered("Email='" + this.signinForm.controls.email.value + "'")

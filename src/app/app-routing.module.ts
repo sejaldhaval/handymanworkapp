@@ -22,7 +22,9 @@ const routes: Routes = [
   { path: 'Location', component: LocationComponent, canActivate: [AuthGuard] },
   { path: 'Room', component: RoomComponent, canActivate: [AuthGuard] },
   { path: 'MaintenanceService', component: WorkorderComponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: 'signin' }];
+  { path: 'User', component: UserComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'signin', pathMatch: 'full' },
+  { path: '**', component: UserComponent },];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

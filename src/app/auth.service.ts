@@ -33,10 +33,6 @@ export class AuthService {
         return this.http.post<any>(this.apiUrl, item, { headers: reqHeader });
     }
 
-    setToken(token: string) {
-        localStorage.setItem("userToken", token);
-    }
-
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('userToken');
