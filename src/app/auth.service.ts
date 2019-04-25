@@ -44,6 +44,6 @@ export class AuthService {
         // remove user from local storage to log user out
         localStorage.removeItem('userToken');
         localStorage.removeItem('UserId');
-        this.router.navigateByUrl("/");
+        this.router.navigateByUrl("/Home");
     }
 }

@@ -24,13 +24,13 @@ export class AuthInterceptor implements HttpInterceptor {
                         return result;
                     }),
                     catchError((err: any) => {
-                        this.router.navigateByUrl("/");
+                        //this.router.navigateByUrl("/Home");
                         return err;
                     })
                     );
             }
             else {
-                this.router.navigateByUrl("/");
+                //this.router.navigateByUrl("/Home");
             }
         }
     }

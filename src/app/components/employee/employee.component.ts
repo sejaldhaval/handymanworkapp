@@ -66,6 +66,11 @@ export class EmployeeComponent implements OnInit {
         $("#list").hide(500);
         this.action = "add";
     }
+    onlist() {
+        $("#list").show(500);
+        $("#add").hide(500);
+        this.action = "";
+    }
 
     add() {
         let item: Employee = {
@@ -131,7 +136,7 @@ export class EmployeeComponent implements OnInit {
             });
     }
 
-    ondelete() {
+    ondelete(item) {
         this.action = "delete";
     }
     delete() { }

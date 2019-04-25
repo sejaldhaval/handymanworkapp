@@ -31,20 +31,7 @@ export class AppComponent implements OnInit {
     error = '';
 
     ngOnInit() {
-        if (localStorage.getItem("UserId") != null) {
-            this.loggedIn = true;
-            let empId: any = localStorage.getItem("UserId");
-            this.employeeService.get(empId)
-                .subscribe(e => {
-                    this.userrolesmenuoptionsmappingService.listFiltered("UserRoleId=" + e.RoleId)
-                        .subscribe(menus => {
-                            this.menu = menus;
-                        });
-                });
-        }
-        else {
-            this.loggedIn = false;
-        }
+        
     }
     navigateToPath(sidenav, url) {
         console.log(window.innerWidth);
@@ -59,7 +46,7 @@ export class AppComponent implements OnInit {
         sidenav.toggle();
         this.authService.logout();
     }
-    signin() {
+    signin(sidenav) {
         this.submitted = true;
         // stop here if form is invalid
         if (this.signinForm.invalid) {
@@ -71,7 +58,7 @@ export class AppComponent implements OnInit {
                 .subscribe((result: any) => {
                     this.loading = false;
                     this.error = "";
-                    this.getUser();
+                    this.getUser(sidenav);
                     this.loggedIn = true;
                 },
                 (err: HttpErrorResponse) => {
@@ -84,7 +71,7 @@ export class AppComponent implements OnInit {
             this.signinForm.controls["password"].markAsDirty();
         }
     }
-    getUser() {
+    getUser(sidenav) {
         this.employeeService.listFiltered("Email='" + this.signinForm.controls.email.value + "'")
             .subscribe(result => {
                 let emp: Employee = result[0];
@@ -92,7 +79,25 @@ export class AppComponent implements OnInit {
                 localStorage.setItem("UserId", empId);
                 this.menuoptionsService.get(emp.DefaultMenuId)
                     .subscribe(menu => {
-                        this.router.navigateByUrl("/" + menu.Name);
+                        if (localStorage.getItem("UserId") != null) {
+                            this.loggedIn = true;
+                            let empId: any = localStorage.getItem("UserId");
+                            this.employeeService.get(empId)
+                                .subscribe(e => {
+                                    this.userrolesmenuoptionsmappingService.listFiltered("UserRoleId=" + e.RoleId)
+                                        .subscribe(menus => {
+                                            this.menu = menus;
+                                            if (window.innerWidth > 575) {
+                                                sidenav.toggle();
+                                                this.router.navigateByUrl("/" + menu.Name);
+                                            }
+                                        });
+                                });
+                        }
+                        else {
+                            this.loggedIn = false;
+                        }
+                        
                     });
             });
     }

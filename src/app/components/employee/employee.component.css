@@ -1,0 +1,56 @@
+.container-cust {
+    background: rgb(248, 248, 248);
+}
+
+.container-fluid-top {
+    padding: 12px;
+    color: rgb(83,85,87);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3em;
+    font-weight: 700;
+    background: #ffffff;
+    border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.container-content-start {
+    margin-bottom: 15px;
+    padding: 15px;
+    border-top: 1px solid rgb(230, 230, 230);
+    border-left: 1px solid rgb(230, 230, 230);
+    border-right: 1px solid rgb(230, 230, 230);
+    border-bottom: 1px solid rgb(230, 230, 230);
+    background: #ffffff;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.container-content-mid {
+    padding: 15px;
+    border: 1px solid rgb(230, 230, 230);
+    background: #ffffff;
+    border-radius: 0px
+}
+
+.container-content-end {
+    margin-bottom: 15px;
+    padding: 15px;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    border-left: 1px solid rgb(230, 230, 230);
+    border-right: 1px solid rgb(230, 230, 230);
+    background: #ffffff;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.btn-remove {
+    float: right;
+    color: rgb(83,85,87);
+}
+
+.btn-edit {
+    float: right;
+    padding-right: 20px;
+    color: rgb(83,85,87);
+}
+#add label {
+    font-size: 12px !important;
+    margin-bottom: 0;
+}

@@ -8,42 +8,29 @@
                 </h4>
             </div>
         </div>
-        <div class="">
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th class="col-xs-1 text-center">Action</th>
-                        <th class="col-xs-2 text-center">NICKNAME</th>
-                        <th class="col-xs-2 text-center">MOBILE</th>
-                        <th class="col-xs-2 text-center">EMAIL</th>
-                        <th class="col-xs-2 text-center">ROLE</th>
-                        <th class="col-xs-2 text-center">LOCATION</th>
-                        <th class="col-xs-1 text-center">ACTIVE</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="cursor: pointer" *ngFor="let item of employees">
-                        <td>
-                            <i (click)="onedit(item)" class="fas fa-edit text-info"></i><i (click)="delete()" class="fas fa-trash text-danger"></i>
-                        </td>
-                        <td>{{item.NickName}}</td>
-                        <td>{{item.Mobile}}</td>
-                        <td>{{item.Email}}</td>
-                        <td>{{item.RoleName}}</td>
-                        <td>{{item.LocationName}}</td>
-                        <td>
-                            <input type="checkbox" class="form-control" disabled />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+
+        <div class="container-content-start" style="cursor: pointer;" *ngFor="let item of employees">
+            <div ngbDropdown placement="bottom-right" class="d-inline-block float-right">
+                <button class="btn-sm btn btn-outline-secondary" id="dropdownBasic2" ngbDropdownToggle></button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                    <button ngbDropdownItem (click)="onedit(item)">Edit</button>
+                    <button ngbDropdownItem (click)="ondelete(item)">Delete</button>
+                </div>
+            </div>
+            <div class="card-data-container" (click)="onedit(item)">
+                <div class="workorder-title title">{{item.NickName}}</div>
+                <div class="card-data"><span class="status">Email: {{item.Email}}</span> ,Password: {{item.Password}}</div>
+                <div class="card-data"><i class="fas fa-map-marker-alt"></i>&nbsp; {{item.LocationName}}<i class="fas fa-calendar-alt"></i>&nbsp; ,Role: {{item.RoleName}}</div>
+            </div>
         </div>
+        .
+        
     </div>
     <div id="add" class="content add-pane pl-1 pr-1" style="display: none;">
         <div>
             <div class="margin-bottom-medium">
                 <h4>
-                    <span class="fas fa-arrow-left pointer"></span>
+                    <span class="fas fa-arrow-left pointer" (click)="onlist()"></span>
                     <span class="fas fa-user"></span><span>{{employeeForm.controls.FirstName.value}}</span>
                 </h4>
                 <hr />
