@@ -1,49 +1,49 @@
 
-
-    <div id="list">
-        <div class="container-content-start p-0 collapse" id="collapseExample">
-            <div class="row">
-                <div class="col">
-                    <div id="col-content" class="btn-cont">
-                        <button class="status-btn text-dark">Filter By</button>
-                        <button class="filter-btn" (click)="filter('Location')">Location</button>
-                        <button class="filter-btn" (click)="filter('AssignedEmployee')">AssignedEmployee</button>
-                        <button class="filter-btn" (click)="filter('MaintenanceIssueStatus')">Status</button>
-                        <button class="filter-btn" (click)="filter('MaintenancePriority')">Priority</button>
-                        <button class="filter-btn" (click)="filter('Room')">Room</button>
-                    </div>
-                </div>
-            </div>
-            <div class="btn-cont pt-0">
-                <button class="status-btn text-dark" (click)="sort()">Sort By: </button><span> {{sortProperty}}</span>
-            </div>
-        </div>
-        <div class="row" [ngClass]="{ 'd-none' : filterString == '' }">
-            <div class="col mb-1">
-                <span>Filtered By: {{filterString}} </span><button class="btn btn-sm btn-outline-dark" (click)="doFilter('',null)">Remove filter </button>
-            </div>
-        </div>
-        <div style="padding-bottom:40px;">
-            <div class="container-content-start" style="cursor: pointer;" *ngFor="let item of maintenanceRequestList" [ngClass]="{ 'prioritylow' : item.MaintenancePriorityId == 3,'prioritymedium' : item.MaintenancePriorityId == 2,'priorityhigh' : item.MaintenancePriorityId == 1 }">
-                <div ngbDropdown placement="bottom-right" class="d-inline-block float-right">
-                    <button class="btn-sm btn btn-outline-secondary" id="dropdownBasic2" ngbDropdownToggle></button>
-                    <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
-                        <!--<button ngbDropdownItem (click)="oncompleted(item)">Completed</button>-->
-                        <button ngbDropdownItem (click)="onupdate(item)">Edit</button>
-                        <button ngbDropdownItem (click)="ondelete(item)">Delete</button>
-                    </div>
-                </div>
-                <div class="card-data-container" (click)="onupdate(item)">
-                    <div class="workorder-title title">{{item.Description}}</div>
-                    <div class="card-data"><span class="status" [ngClass]="{ 'pending' : item.MaintenanceIssueStatusId == 1,'completed' : item.MaintenanceIssueStatusId == 2, 'onhold' : item.MaintenanceIssueStatusId == 3 }">{{item.MaintenanceIssueStatusName}}</span>{{item.RoomName}}&nbsp;&nbsp;<i class="fas fa-user"></i>&nbsp;&nbsp;{{item.AssignedEmployeeName}}</div>
-                    <div class="card-data"><i class="fas fa-map-marker-alt"></i>&nbsp; {{item.LocationName}}<i class="fas fa-calendar-alt"></i>&nbsp; {{item.CreatedOnUtc | date: 'dd/MM/yyyy hh:mm'}}</div>
+<div class="fixed-top pt-2 pr-2" style="margin-left: 35px;">
+    <span class="btn btn-sm">Work Order</span>
+</div>
+<div id="list">
+    <div class="container-content-start p-0 collapse" id="collapseExample">
+        <div class="row">
+            <div class="col">
+                <div id="col-content" class="btn-cont">
+                    <button class="status-btn text-dark">Filter By</button>
+                    <button class="filter-btn" (click)="filter('Location')">Location</button>
+                    <button class="filter-btn" (click)="filter('AssignedEmployee')">AssignedEmployee</button>
+                    <button class="filter-btn" (click)="filter('MaintenanceIssueStatus')">Status</button>
+                    <button class="filter-btn" (click)="filter('MaintenancePriority')">Priority</button>
+                    <button class="filter-btn" (click)="filter('Room')">Room</button>
                 </div>
             </div>
         </div>
-        <div class="fixed-bottom">
-            <button class="btn btn-info float-right" (click)="oncreate()">Create Request <span class="fas fa-plus"></span></button>
+        <div class="btn-cont pt-0">
+            <button class="status-btn text-dark" (click)="sort()">Sort By: </button><span> {{sortProperty}}</span>
         </div>
     </div>
+    <div class="row" [ngClass]="{ 'd-none' : filterString == '' }">
+        <div class="col mb-1">
+            <span>Filtered By: {{filterString}} </span><button class="btn btn-sm btn-outline-dark" (click)="doFilter('',null)">Remove filter </button>
+        </div>
+    </div>
+    <div class="card mb-2" *ngFor="let item of maintenanceRequestList" [ngClass]="{ 'prioritylow' : item.MaintenancePriorityId == 3,'prioritymedium' : item.MaintenancePriorityId == 2,'priorityhigh' : item.MaintenancePriorityId == 1 }">
+        <div class="card-body p-2" (click)="onupdate(item)">
+            <div ngbDropdown placement="bottom-right" class="d-inline-block d-flex float-right">
+                <button class="btn-sm btn btn-outline-secondary" id="dropdownBasic2" ngbDropdownToggle></button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                    <button ngbDropdownItem (click)="onupdate(item)">Edit</button>
+                    <button ngbDropdownItem (click)="ondelete(item)">Delete</button>
+                </div>
+            </div>
+            <h6 class="workorder-title card-title">{{item.Description}}</h6>
+            <div class="card-text mb-0"><span class="status" [ngClass]="{ 'pending' : item.MaintenanceIssueStatusId == 1,'completed' : item.MaintenanceIssueStatusId == 2, 'onhold' : item.MaintenanceIssueStatusId == 3 }">{{item.MaintenanceIssueStatusName}}</span>{{item.RoomName}}&nbsp;&nbsp;<i class="fas fa-user"></i>&nbsp;&nbsp;{{item.AssignedEmployeeName}}</div>
+            <div class="card-text mb-0"><i class="fas fa-map-marker-alt"></i>&nbsp; {{item.LocationName}}<i class="fas fa-calendar-alt"></i>&nbsp; {{item.CreatedOnUtc | date: 'dd/MM/yyyy hh:mm'}}</div>
+        </div>
+    </div>
+    <div class="fixed-bottom">
+        <button class="btn btn-info float-right" (click)="oncreate()">Create Request <span class="fas fa-plus"></span></button>
+    </div>
+
+</div>
 
     
     <div id="add" class="AddReq-form-style pl-2 pr-2" style="display:none;">
@@ -135,17 +135,6 @@
                                 </small>
                             </div>
                         </div>
-                        <div class="form-group mb-0">
-                            <div class="row">
-                                <div class="col pl-0 pr-1">
-                                    <button class="btn btn-outline-dark btn-block" (click)="onlist()">Cancel</button>
-                                </div>
-                                <div class="col p-0">
-                                    <button class="btn btn-primary btn-block" (click)="create()" *ngIf="action == 'Add'">Add Request</button>
-                                    <button class="btn btn-primary btn-block" (click)="update()" *ngIf="action == 'Edit'">Save Request</button>
-                                </div>
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -179,7 +168,6 @@
                 <button class="btn btn-sm btn-info float-right" (click)="create()" *ngIf="action == 'Add'"><i class="fas fa-save"></i></button>
                 <button class="btn btn-sm btn-info float-right" (click)="update()" *ngIf="action == 'Edit'"><i class="fas fa-save"></i></button>
                 <button class="btn btn-sm float-right mr-2" (click)="onlist()"><i class="fas fa-window-close"></i></button>
-                <span class="btn btn-sm">Work Order</span>
             </div>
         </div>
     </div>
