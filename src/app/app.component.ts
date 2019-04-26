@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatSidenav } from '@angular/material/sidenav';
 
 import { Employee, EmployeeService } from './services/employee.service';
 import { MenuOptions, MenuoptionsService } from './services/menuoptions.service';
@@ -17,7 +18,7 @@ export class AppComponent implements OnInit {
     constructor(private employeeService: EmployeeService, private userrolesmenuoptionsmappingService: UserrolesmenuoptionsmappingService,
         private authService: AuthService, private router: Router, private menuoptionsService: MenuoptionsService) { }
 
-    title = 'handymanworkapp';
+    title = 'Handymanworkapp';
 
     public menu: UserRolesMenuOptionsMapping[] = [];
     public loggedIn: boolean = false;
@@ -29,24 +30,27 @@ export class AppComponent implements OnInit {
     submitted = false;
     returnUrl: string;
     error = '';
+    @ViewChild('sidenav') sidenav: MatSidenav;
 
     ngOnInit() {
-        
+
     }
-    navigateToPath(sidenav, url) {
-        console.log(window.innerWidth);
+
+    navigateToPath(url) {
         if (window.innerWidth <= 575) {
-            sidenav.toggle();
+            this.sidenav.toggle();
         }
         this.router.navigateByUrl("/" + url);
     }
-    logout(sidenav) {
+
+    logout() {
         this.loggedIn = false;
         this.menu = [];
-        sidenav.toggle();
+        this.sidenav.close();
         this.authService.logout();
     }
-    signin(sidenav) {
+
+    signin() {
         this.submitted = true;
         // stop here if form is invalid
         if (this.signinForm.invalid) {
@@ -58,7 +62,7 @@ export class AppComponent implements OnInit {
                 .subscribe((result: any) => {
                     this.loading = false;
                     this.error = "";
-                    this.getUser(sidenav);
+                    this.getUser();
                     this.loggedIn = true;
                 },
                 (err: HttpErrorResponse) => {
@@ -71,7 +75,8 @@ export class AppComponent implements OnInit {
             this.signinForm.controls["password"].markAsDirty();
         }
     }
-    getUser(sidenav) {
+
+    getUser() {
         this.employeeService.listFiltered("Email='" + this.signinForm.controls.email.value + "'")
             .subscribe(result => {
                 let emp: Employee = result[0];
@@ -87,17 +92,14 @@ export class AppComponent implements OnInit {
                                     this.userrolesmenuoptionsmappingService.listFiltered("UserRoleId=" + e.RoleId)
                                         .subscribe(menus => {
                                             this.menu = menus;
-                                            if (window.innerWidth > 575) {
-                                                sidenav.toggle();
-                                                this.router.navigateByUrl("/" + menu.Name);
-                                            }
+                                            this.navigateToPath(menu.Name);
                                         });
                                 });
                         }
                         else {
                             this.loggedIn = false;
                         }
-                        
+
                     });
             });
     }

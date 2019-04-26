@@ -1,13 +1,5 @@
 
-<div class="container-fluid">
-    <div class="pl-2 pr-2 bg-light border">
-        <span style="cursor:pointer;" *ngIf="action == 'Add' || action == 'Edit'" (click)="onlist()"><i class="fas fa-chevron-left"></i></span>
-        <a> Work Order</a>
-        <span class="navbar-text p-0 float-right">
-            <span style="cursor:pointer;" class="fas fa-sliders-h " *ngIf="action == 'List'" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></span>
-            <span (click)="update()" style="cursor:pointer;" *ngIf="action == 'Add' || action == 'Edit'" class="float-right">Save</span>
-        </span>
-    </div>
+
     <div id="list">
         <div class="container-content-start p-0 collapse" id="collapseExample">
             <div class="row">
@@ -49,9 +41,11 @@
             </div>
         </div>
         <div class="fixed-bottom">
-            <button class="btn-Addreqform" (click)="oncreate()">Create Request <span class="fas fa-plus"></span></button>
+            <button class="btn btn-info float-right" (click)="oncreate()">Create Request <span class="fas fa-plus"></span></button>
         </div>
     </div>
+
+    
     <div id="add" class="AddReq-form-style pl-2 pr-2" style="display:none;">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
@@ -172,18 +166,24 @@
                     <div class="form-group mb-0 fixed-bottom">
                         <div class="pl-2 pr-2">
                             <div class="input-group mb-2">
-                                    <input type="text" class="form-control" formControlName="Comment">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" (click)="createComment()">Send</button>
-                                    </div>
+                                <input type="text" class="form-control" formControlName="Comment">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" (click)="createComment()">Send</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
+            <div class="fixed-top pt-2 pr-2" style="margin-left: 35px;">
+                <button class="btn btn-sm btn-info float-right" (click)="create()" *ngIf="action == 'Add'"><i class="fas fa-save"></i></button>
+                <button class="btn btn-sm btn-info float-right" (click)="update()" *ngIf="action == 'Edit'"><i class="fas fa-save"></i></button>
+                <button class="btn btn-sm float-right mr-2" (click)="onlist()"><i class="fas fa-window-close"></i></button>
+                <span class="btn btn-sm">Work Order</span>
+            </div>
         </div>
     </div>
-</div>
+
 <div class="modal fade" id="workOrderModal" tabindex="-1" role="dialog" aria-labelledby="workOrderModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

@@ -6,7 +6,7 @@ import { HttpErrorHandlerService, HandleError, HandleSuccess } from '../http-err
 import { environment } from '../../environments/environment';
 
 const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("userToken") })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }) 
 };
 
 export class Employee {
@@ -45,7 +45,6 @@ export class EmployeeService {
   }
 
   listFiltered(whereString: string): Observable<Employee[]> {
-      console.log(httpOptions);
       return this.http.get<Employee[]>(this.apiUrl + "/listFiltered/" + whereString, httpOptions)
       .pipe(
       map((result: any) => { return this.handleSuccess("listFiltered", result) }),

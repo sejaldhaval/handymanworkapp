@@ -42,6 +42,17 @@ import { EmployeeComponent } from './components/employee/employee.component';
 import { LocationComponent } from './components/location/location.component';
 import { RoomComponent } from './components/room/room.component';
 import { HomeComponent } from './components/home/home.component';
+import { InventoryItemComponent } from './components/inventory-item/inventory-item.component';
+import { InventoryTypeComponent } from './components/inventory-type/inventory-type.component';
+import { MaintenanceIssueStatusComponent } from './components/maintenance-issue-status/maintenance-issue-status.component';
+import { MaintenancePriorityComponent } from './components/maintenance-priority/maintenance-priority.component';
+import { MaintenanceServiceImagesComponent } from './components/maintenance-service-images/maintenance-service-images.component';
+import { MaintenanceServiceStatusComponent } from './components/maintenance-service-status/maintenance-service-status.component';
+import { MenuOptionsComponent } from './components/menu-options/menu-options.component';
+import { PurchaseOrderStatusComponent } from './components/purchase-order-status/purchase-order-status.component';
+import { UserRolesComponent } from './components/user-roles/user-roles.component';
+import { UserRolesMenuOptionsMappingComponent } from './components/user-roles-menu-options-mapping/user-roles-menu-options-mapping.component';
+import { VendorComponent } from './components/vendor/vendor.component';
 
 @NgModule({
     declarations: [
@@ -56,7 +67,18 @@ import { HomeComponent } from './components/home/home.component';
         EmployeeComponent,
         LocationComponent,
         RoomComponent,
-        HomeComponent
+        HomeComponent,
+        InventoryItemComponent,
+        InventoryTypeComponent,
+        MaintenanceIssueStatusComponent,
+        MaintenancePriorityComponent,
+        MaintenanceServiceImagesComponent,
+        MaintenanceServiceStatusComponent,
+        MenuOptionsComponent,
+        PurchaseOrderStatusComponent,
+        UserRolesComponent,
+        UserRolesMenuOptionsMappingComponent,
+        VendorComponent
     ],
     imports: [
         BrowserModule,
@@ -89,12 +111,12 @@ import { HomeComponent } from './components/home/home.component';
         VendorService,
         MaintenanceservicestatusService,
         AuthService,
-        AuthGuard
-        //{
-        //    provide: HTTP_INTERCEPTORS,
-        //    useClass: AuthInterceptor,
-        //    multi: true
-        //}
+        AuthGuard,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        }
     ],
     bootstrap: [AppComponent]
 })

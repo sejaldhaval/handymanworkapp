@@ -2,12 +2,12 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    /*font-family: 'Roboto', sans-serif;*/
 }
 
 /*------------cust-navbar-start---------------------*/
 
-.opacity-filter {
+/*.opacity-filter {
     display: none;
     position: fixed;
     width: 100%;
@@ -17,24 +17,24 @@ body {
     background: #000000;
     opacity: 0;
     z-index: 90;
-}
+}*/
 
 .navbar-cont {
-    position: fixed;
+    /*position: fixed;
     right: 0;
-    z-index: 100;
+    z-index: 100;*/
 }
 
 .navbar-content-cust p {
-    font-size: 3em;
+    /*font-size: 3em;
     font-family: 'Alfa Slab One', cursive;
     opacity: 0.3;
     font-weight: 100;
     line-height: 1em;
-    cursor: pointer;
+    cursor: pointer;*/
 }
 
-    .navbar-content-cust p:hover {
+    /*.navbar-content-cust p:hover {
         opacity: 0.7 !important;
     }
 
@@ -141,7 +141,7 @@ body {
     .isactive .menu-hamburger-inner::after {
         transform: translate3d(-8px,-3px,0px) rotate(45deg) scaleX(0.5);
         transition: 0.3s ease;
-    }
+    }*/
 /*------------cust-navbar-end-----------------------*/
 /*------------navbar-start---------------------*/
 
@@ -156,21 +156,21 @@ body {
 }
 
 .navbar-content {
-    position: absolute;
+    /*position: absolute;
     display: none;
-    z-index: 101;
+    z-index: 101;*/
 }
 
 .btn-bars {
-    font-size: 2em;
+    /*font-size: 2em;
     color: #ffffff;
     position: absolute;
     top: 10px;
     right: 15px;
-    z-index: 100;
+    z-index: 100;*/
 }
 
-    .btn-bars:hover {
+    /*.btn-bars:hover {
         cursor: pointer;
     }
 
@@ -188,10 +188,10 @@ body {
     height: 200%;
     top: 0;
     left: 0;
-}
+}*/
 
 /*------------navbar-end-----------------------*/
-.container-cust {
+/*.container-cust {
     background: rgb(248, 248, 248);
 }
 
@@ -248,7 +248,7 @@ body {
     font-weight: 600;
     font-size: 1em;
     color: rgb(83,85,87);
-}
+}*/
 
 .status {
     padding: 2px 5px 3px 5px;
@@ -279,7 +279,7 @@ body {
     margin-bottom: 0px;
 }
 
-.AddReq-top-nav {
+/*.AddReq-top-nav {
     padding-bottom: 5px;
     margin-bottom: 5px;
     border-bottom: 1px solid rgb(230, 230, 230);
@@ -288,7 +288,7 @@ body {
     .AddReq-top-nav i {
         padding: 10px;
         font-size: 1.4em;
-    }
+    }*/
 
 /*.AddReq-form-style {
     background: #ffffff;
@@ -297,7 +297,7 @@ body {
     border-radius: 5px;
 }*/
 
-.AddReq-form .row {
+/*.AddReq-form .row {
     margin: 0;
 }
 
@@ -311,7 +311,7 @@ body {
 
     .btn-cont button {
         outline: none;
-    }
+    }*/
 
 .status-btn {
     margin: 0;

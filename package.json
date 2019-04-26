@@ -8,8 +8,7 @@
         "build": "ng build --production",
         "test": "ng test",
         "lint": "ng lint",
-        "e2e": "ng e2e",
-        "postinstall": "npm run build"
+        "e2e": "ng e2e"
     },
     "private": true,
     "dependencies": {
@@ -21,6 +20,8 @@
         "@angular/forms": "7.0.2",
         "@angular/http": "7.0.2",
         "@angular/material": "^7.3.7",
+        "web-animations-js": "2.3.1",
+        "@angular/material-moment-adapter": "7.3.7",
         "@angular/platform-browser": "7.0.2",
         "@angular/platform-browser-dynamic": "7.0.2",
         "@angular/router": "7.0.2",
@@ -35,9 +36,8 @@
         "increase-memory-limit": "1.0.6",
         "jquery": "3.3.1",
         "rxjs": "^6.3.3",
+        "moment": "2.24.0",
         "rxjs-compat": "^6.3.3",
-        "sweetalert2": "7.12.16",
-        "syncfusion-javascript": "16.1.26",
         "xlsx": "^0.14.0",
         "zone.js": "~0.8.26"
     },

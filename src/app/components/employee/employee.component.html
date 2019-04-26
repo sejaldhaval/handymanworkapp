@@ -1,133 +1,136 @@
-
+<div class="fixed-top pt-2 pr-2" style="margin-left: 35px;">
+    <span class="btn btn-sm">Employee</span>
+</div>
 <div id="employee" class="panel-body parent-tab">
-    <div id="list" class="content list-pane">
-        <div class="col-xs-12 padding-none">
-            <div class="margin-bottom-medium">
-                <h4>
-                    <button class="btn btn-primary show-add" (click)="onadd()">Add</button>
-                </h4>
-            </div>
-        </div>
-
-        <div class="container-content-start" style="cursor: pointer;" *ngFor="let item of employees">
-            <div ngbDropdown placement="bottom-right" class="d-inline-block float-right">
-                <button class="btn-sm btn btn-outline-secondary" id="dropdownBasic2" ngbDropdownToggle></button>
-                <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
-                    <button ngbDropdownItem (click)="onedit(item)">Edit</button>
-                    <button ngbDropdownItem (click)="ondelete(item)">Delete</button>
+    <div id="list" class="list-pane">
+        <div class="card mb-1" *ngFor="let item of employees">
+            <div class="card-body p-2">
+                <div ngbDropdown placement="bottom-right" class="d-inline-block d-flex float-right">
+                    <button class="btn-sm btn btn-outline-secondary" id="dropdownBasic2" ngbDropdownToggle></button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                        <button ngbDropdownItem (click)="onedit(item)">Edit</button>
+                        <button ngbDropdownItem (click)="ondelete(item)">Delete</button>
+                    </div>
                 </div>
-            </div>
-            <div class="card-data-container" (click)="onedit(item)">
-                <div class="workorder-title title">{{item.NickName}}</div>
-                <div class="card-data"><span class="status">Email: {{item.Email}}</span> ,Password: {{item.Password}}</div>
-                <div class="card-data"><i class="fas fa-map-marker-alt"></i>&nbsp; {{item.LocationName}}<i class="fas fa-calendar-alt"></i>&nbsp; ,Role: {{item.RoleName}}</div>
+                <h6 class="workorder-title card-title">{{item.NickName}}</h6>
+                <p class="card-text mb-0"><span>User:&nbsp; {{item.Email}}</span> ,Password: {{item.Password}}</p>
+                <p class="card-text mb-0"><i class="fas fa-map-marker-alt"></i>&nbsp; {{item.LocationName}}&nbsp; <i class="fas fa-user"></i>&nbsp; {{item.RoleName}}</p>
             </div>
         </div>
-        .
-        
+        <div class="fixed-bottom">
+            <button class="btn btn-info float-right" (click)="onadd()">Add Employee <span class="fas fa-plus"></span></button>
+        </div>
     </div>
     <div id="add" class="content add-pane pl-1 pr-1" style="display: none;">
-        <div>
-            <div class="margin-bottom-medium">
-                <h4>
-                    <span class="fas fa-arrow-left pointer" (click)="onlist()"></span>
-                    <span class="fas fa-user"></span><span>{{employeeForm.controls.FirstName.value}}</span>
-                </h4>
-                <hr />
+        <form novalidate [formGroup]="employeeForm">
+            <div class="form-group">
+                <label class="control-label col-xs-4">First Name </label>
+                <div class="col-xs-8">
+                    <div class="input-group col-xs-12">
+                        <input class="form-control" formControlName="FirstName" />
+                    </div>
+                </div>
             </div>
-        </div>
-        <div>
-            <form novalidate [formGroup]="employeeForm">
-                <div class="form-group">
-                    <label class="control-label col-xs-4">First Name </label>
-                    <div class="col-xs-8">
-                        <div class="input-group col-xs-12">
-                            <input class="form-control" formControlName="FirstName" />
-                        </div>
+            <div class="form-group">
+                <label class="control-label col-xs-4">Last Name </label>
+                <div class="col-xs-8">
+                    <div class="input-group col-xs-12">
+                        <input class="form-control" formControlName="LastName" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-4">Last Name </label>
-                    <div class="col-xs-8">
-                        <div class="input-group col-xs-12">
-                            <input class="form-control" formControlName="LastName" />
-                        </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-4">Nick Name </label>
+                <div class="col-xs-8">
+                    <div class="input-group col-xs-12">
+                        <input class="form-control" formControlName="NickName" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-4">Nick Name </label>
-                    <div class="col-xs-8">
-                        <div class="input-group col-xs-12">
-                            <input class="form-control" formControlName="NickName" />
-                        </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-4">Mobile </label>
+                <div class="col-xs-8">
+                    <div class="input-group col-xs-12">
+                        <input class="form-control" formControlName="Mobile" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-4">Mobile </label>
-                    <div class="col-xs-8">
-                        <div class="input-group col-xs-12">
-                            <input class="form-control" formControlName="Mobile" />
-                        </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-4">Email </label>
+                <div class="col-xs-8">
+                    <div class="input-group col-xs-12">
+                        <input class="form-control" formControlName="Email" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-4">Email </label>
-                    <div class="col-xs-8">
-                        <div class="input-group col-xs-12">
-                            <input class="form-control" formControlName="Email" />
-                        </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-4">Password </label>
+                <div class="col-xs-8">
+                    <div class="input-group col-xs-12">
+                        <input class="form-control" formControlName="Password" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-4">Password </label>
-                    <div class="col-xs-8">
-                        <div class="input-group col-xs-12">
-                            <input class="form-control" formControlName="Password" />
-                        </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-4">Role</label>
+                <div class="col-xs-8">
+                    <div class="input-group col-xs-12">
+                        <select class="form-control" formControlName="RoleId">
+                            <option *ngFor="let item of roles" value="{{item.Id}}">{{item.Name}}</option>
+                        </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-4">Role</label>
-                    <div class="col-xs-8">
-                        <div class="input-group col-xs-12">
-                            <select class="form-control" formControlName="RoleId">
-                                <option *ngFor="let item of roles" value="{{item.Id}}">{{item.Name}}</option>
-                            </select>
-                        </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-4">Location</label>
+                <div class="col-xs-8">
+                    <div class="input-group col-xs-12">
+                        <select class="form-control" formControlName="LocationId">
+                            <option *ngFor="let item of locations" value="{{item.Id}}">{{item.Name}}</option>
+                        </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-4">Location</label>
-                    <div class="col-xs-8">
-                        <div class="input-group col-xs-12">
-                            <select class="form-control" formControlName="LocationId">
-                                <option *ngFor="let item of locations" value="{{item.Id}}">{{item.Name}}</option>
-                            </select>
-                        </div>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label col-xs-4">Favourite Menu</label>
+                <div class="col-xs-8">
+                    <div class="input-group col-xs-12">
+                        <select class="form-control" formControlName="DefaultMenuId">
+                            <option *ngFor="let item of menus" value="{{item.Id}}">{{item.Name}}</option>
+                        </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-4">Favourite Menu</label>
-                    <div class="col-xs-8">
-                        <div class="input-group col-xs-12">
-                            <select class="form-control" formControlName="DefaultMenuId">
-                                <option *ngFor="let item of menus" value="{{item.Id}}">{{item.Name}}</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group mb-0 row">
-                    <div class="col-6 pl-0 pr-1">
-                        <button class="btn btn-outline-dark btn-block" >Cancel</button>
-                    </div>
-                    <div class="col-6 p-0">
-                        <button class="btn btn-primary btn-block" (click)="add()" *ngIf="action == 'add'">Add Request</button>
-                        <button class="btn btn-primary btn-block" (click)="edit()" *ngIf="action == 'edit'">Save Request</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="fixed-top pt-2 pr-2" style="margin-left: 35px;">
+                <button class="btn btn-sm btn-info float-right" (click)="add()" *ngIf="action == 'add'">Save</button>
+                <button class="btn btn-sm btn-info float-right" (click)="edit()" *ngIf="action == 'edit'">Save</button>
+                <button class="btn btn-sm float-right mr-2" (click)="onlist()">Cancel</button>
+            </div>
+        </form>
     </div>
 </div>
 
+<div class="modal fade" id="EmployeeModal" tabindex="-1" role="dialog" aria-labelledby="EmployeeModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EmployeeModalTitle">Delete Employee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Are you sure you want to delete <span class="text-primary">{{this.employeeForm.controls.FirstName.value}}</span> profile?</strong></p>
+                <p>
+                    All information associated to this user profile will be permanently deleted.
+                    <span class="text-danger">This operation can not be undone.</span>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" (click)="delete()">Delete changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 

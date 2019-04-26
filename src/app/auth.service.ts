@@ -8,7 +8,7 @@ import { environment } from '../environments/environment';
 import { Employee } from './services/employee.service';
 
 const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("userToken") })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable({
