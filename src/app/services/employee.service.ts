@@ -65,7 +65,6 @@ export class EmployeeService {
       catchError(this.handleError<Employee>(`get id=${id}`))
       );
   }
-    //Will need No-Auth in the header
   create(item: Employee): Observable<Employee> {
     return this.http.post<Employee>(this.apiUrl + "/create", item, httpOptions)
       .pipe(

@@ -24,7 +24,7 @@
     <div id="add" class="content add-pane pl-1 pr-1" style="display: none;">
         <form novalidate [formGroup]="employeeForm">
             <div class="form-group">
-                <label class="control-label col-xs-4">First Name </label>
+                <label class="control-label col-xs-4">First Name <small class="text-danger">*</small></label>
                 <div class="col-xs-8">
                     <div class="input-group col-xs-12">
                         <input class="form-control" formControlName="FirstName" />
@@ -61,7 +61,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-xs-4">User Name </label>
+                <label class="control-label col-xs-4">User Name <small class="text-danger">*</small></label>
                 <div class="col-xs-8">
                     <div class="input-group col-xs-12">
                         <input class="form-control" formControlName="Email" />
@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-xs-4">Password </label>
+                <label class="control-label col-xs-4">Password <small class="text-danger">*</small></label>
                 <div class="col-xs-8">
                     <div class="input-group col-xs-12">
                         <input class="form-control" formControlName="Password" />
@@ -87,7 +87,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-xs-4">Role</label>
+                <label class="control-label col-xs-4">Role <small class="text-danger">*</small></label>
                 <div class="col-xs-8">
                     <div class="input-group col-xs-12">
                         <select class="form-control" formControlName="RoleId" (ngModelChange)="updateSelectBoxOnList(roles, employeeForm.controls.RoleId.value, employeeForm.controls.RoleName)">
@@ -102,7 +102,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-xs-4">Location</label>
+                <label class="control-label col-xs-4">Location <small class="text-danger">*</small></label>
                 <div class="col-xs-8">
                     <div class="input-group col-xs-12">
                         <select class="form-control" formControlName="LocationId" (ngModelChange)="updateSelectBoxOnList(locations, employeeForm.controls.LocationId.value, employeeForm.controls.LocationName)">
@@ -117,7 +117,7 @@
                 </div>
             </div>
             <div class="form-group mb-3">
-                <label class="control-label col-xs-4">Favourite Menu</label>
+                <label class="control-label col-xs-4">Favourite Menu <small class="text-danger">*</small></label>
                 <div class="col-xs-8">
                     <div class="input-group col-xs-12">
                         <select class="form-control" formControlName="DefaultMenuId" (ngModelChange)="updateSelectBoxOnList(menus, employeeForm.controls.DefaultMenuId.value, employeeForm.controls.DefaultMenuName)">

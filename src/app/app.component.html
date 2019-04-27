@@ -52,11 +52,9 @@
 </div>
 
 <mat-sidenav-container style="position: absolute; top: 0;bottom: 0;left: 0;right: 0;margin-top: 47px; padding-right: 5px" *ngIf="loggedIn == true">
-    <mat-sidenav #sidenav mode="side">
-        <ul class="list-group list-group-flush" style="cursor: pointer;" *ngFor="let item of menu">
-            <li class="list-group-item border-0 bg-dark text-light" (click)="navigateToPath(item.MenuOptionName)">{{item.MenuOptionName}}</li>
-        </ul>
-        <ul class="list-group list-group-flush">
+    <mat-sidenav #sidenav mode="over" class="bg-dark text-light">
+        <ul class="list-group list-group-flush" style="cursor: pointer;">
+            <li class="list-group-item border-0 bg-dark text-light" *ngFor="let item of menu" (click)="navigateToPath(item.MenuOptionName)">{{item.MenuOptionName}}</li>
             <li class="list-group-item border-0 bg-dark text-light" (click)="logout()">Logout</li>
         </ul>
     </mat-sidenav>
