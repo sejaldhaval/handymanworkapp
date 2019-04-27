@@ -147,7 +147,7 @@ export class WorkorderComponent implements OnInit {
             });
         this.maintenanceservicestatusService.listFiltered("MaintenanceServiceId=" + item.Id)
             .subscribe(r => {
-                    this.updateList = r;
+                this.updateList = r;
             });
     }
     oncompleted() {

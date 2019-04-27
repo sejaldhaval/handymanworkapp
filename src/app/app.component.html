@@ -55,6 +55,8 @@
     <mat-sidenav #sidenav mode="side">
         <ul class="list-group list-group-flush" style="cursor: pointer;" *ngFor="let item of menu">
             <li class="list-group-item border-0 bg-dark text-light" (click)="navigateToPath(item.MenuOptionName)">{{item.MenuOptionName}}</li>
+        </ul>
+        <ul class="list-group list-group-flush">
             <li class="list-group-item border-0 bg-dark text-light" (click)="logout()">Logout</li>
         </ul>
     </mat-sidenav>
