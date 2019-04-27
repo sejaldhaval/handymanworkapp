@@ -51,10 +51,11 @@
     </div>
 </div>
 
-<mat-sidenav-container style="position: absolute; top: 0;bottom: 0;left: 0;right: 0;margin-top: 47px; padding-left:5px; padding-right: 5px" *ngIf="loggedIn == true">
+<mat-sidenav-container style="position: absolute; top: 0;bottom: 0;left: 0;right: 0;margin-top: 47px; padding-right: 5px" *ngIf="loggedIn == true">
     <mat-sidenav #sidenav mode="side">
         <ul class="list-group list-group-flush" style="cursor: pointer;" *ngFor="let item of menu">
             <li class="list-group-item border-0 bg-dark text-light" (click)="navigateToPath(item.MenuOptionName)">{{item.MenuOptionName}}</li>
+            <li class="list-group-item border-0 bg-dark text-light" (click)="logout()">Logout</li>
         </ul>
     </mat-sidenav>
     <mat-sidenav-content>
