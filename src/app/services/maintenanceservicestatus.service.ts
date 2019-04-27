@@ -56,7 +56,6 @@ export class MaintenanceservicestatusService {
             );
     }
     create(item: MaintenanceServiceStatus): Observable<MaintenanceServiceStatus> {
-        console.log(item,"1");
         return this.http.post<MaintenanceServiceStatus>(this.apiUrl + "/create", item, httpOptions)
             .pipe(
             map((result: any) => { return this.handleSuccess("create", result) }),

@@ -80,13 +80,11 @@ export class EmployeeService {
       catchError(this.handleError<any>('update'))
       );
   }
-  delete(item: Employee | number): Observable<Employee> {
-    const id = typeof item === 'number' ? item : item.Id;
-    const url = `${this.apiUrl}/delete/${id}`;
-    return this.http.post<Employee>(url, httpOptions)
-      .pipe(
-      map((result: any) => { return this.handleSuccess("delete", result) }),
-      catchError(this.handleError<Employee>('delete'))
-      );
+  delete(Id: number): Observable<boolean> {
+      return this.http.get<boolean>(this.apiUrl + "/delete/" + Id, httpOptions)
+          .pipe(
+          map((result: any) => { return this.handleSuccess("delete", result) }),
+          catchError(this.handleError<boolean>('delete'))
+          );
   }
 }

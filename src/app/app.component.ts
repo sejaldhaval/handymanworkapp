@@ -8,6 +8,7 @@ import { UserRolesMenuOptionsMapping, UserrolesmenuoptionsmappingService } from 
 import { AuthService } from './auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+declare var $: any;
 
 @Component({
     selector: 'app-root',
@@ -82,24 +83,18 @@ export class AppComponent implements OnInit {
                 let emp: Employee = result[0];
                 let empId: any = emp.Id;
                 localStorage.setItem("UserId", empId);
-                this.menuoptionsService.get(emp.DefaultMenuId)
-                    .subscribe(menu => {
-                        if (localStorage.getItem("UserId") != null) {
-                            this.loggedIn = true;
-                            let empId: any = localStorage.getItem("UserId");
-                            this.employeeService.get(empId)
-                                .subscribe(e => {
-                                    this.userrolesmenuoptionsmappingService.listFiltered("UserRoleId=" + e.RoleId)
-                                        .subscribe(menus => {
-                                            this.menu = menus;
-                                            this.navigateToPath(menu.Name);
-                                        });
-                                });
+                this.loggedIn = true;
+                this.userrolesmenuoptionsmappingService.listFiltered("UserRoleId=" + emp.RoleId)
+                    .subscribe(menus => {
+                        this.menu = menus;
+                        if (emp.DefaultMenuId != 0) {
+                            this.router.navigateByUrl("/" + emp.DefaultMenuName);
                         }
                         else {
-                            this.loggedIn = false;
+                            if (window.innerWidth <= 575) {
+                                this.sidenav.toggle();
+                            }
                         }
-
                     });
             });
     }

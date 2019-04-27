@@ -12,12 +12,12 @@
                         <button ngbDropdownItem (click)="ondelete(item)">Delete</button>
                     </div>
                 </div>
-                <h6 class="workorder-title card-title">{{item.NickName}}</h6>
+                <h6 class="workorder-title card-title">{{item.FirstName}}</h6>
                 <p class="card-text mb-0"><span>User:&nbsp; {{item.Email}}</span> ,Password: {{item.Password}}</p>
                 <p class="card-text mb-0"><i class="fas fa-map-marker-alt"></i>&nbsp; {{item.LocationName}}&nbsp; <i class="fas fa-user"></i>&nbsp; {{item.RoleName}}</p>
             </div>
         </div>
-        <div class="fixed-bottom">
+        <div class="fixed-bottom mb-2 mr-2">
             <button class="btn btn-info float-right" (click)="onadd()">Add Employee <span class="fas fa-plus"></span></button>
         </div>
     </div>
@@ -28,6 +28,11 @@
                 <div class="col-xs-8">
                     <div class="input-group col-xs-12">
                         <input class="form-control" formControlName="FirstName" />
+                    </div>
+                    <div *ngIf="employeeForm.controls.FirstName.invalid && (employeeForm.controls.FirstName.dirty || employeeForm.controls.FirstName.touched)">
+                        <small class="text-danger" *ngIf="employeeForm.controls.FirstName.errors.required">
+                            FirstName is required.
+                        </small>
                     </div>
                 </div>
             </div>
@@ -56,10 +61,15 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-xs-4">Email </label>
+                <label class="control-label col-xs-4">User Name </label>
                 <div class="col-xs-8">
                     <div class="input-group col-xs-12">
                         <input class="form-control" formControlName="Email" />
+                    </div>
+                    <div *ngIf="employeeForm.controls.Email.invalid && (employeeForm.controls.Email.dirty || employeeForm.controls.Email.touched)">
+                        <small class="text-danger" *ngIf="employeeForm.controls.Email.errors.required">
+                            Email is required.
+                        </small>
                     </div>
                 </div>
             </div>
@@ -69,15 +79,25 @@
                     <div class="input-group col-xs-12">
                         <input class="form-control" formControlName="Password" />
                     </div>
+                    <div *ngIf="employeeForm.controls.Password.invalid && (employeeForm.controls.Password.dirty || employeeForm.controls.Password.touched)">
+                        <small class="text-danger" *ngIf="employeeForm.controls.Password.errors.required">
+                            Password is required.
+                        </small>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-xs-4">Role</label>
                 <div class="col-xs-8">
                     <div class="input-group col-xs-12">
-                        <select class="form-control" formControlName="RoleId">
+                        <select class="form-control" formControlName="RoleId" (ngModelChange)="updateSelectBoxOnList(roles, employeeForm.controls.RoleId.value, employeeForm.controls.RoleName)">
                             <option *ngFor="let item of roles" value="{{item.Id}}">{{item.Name}}</option>
                         </select>
+                    </div>
+                    <div *ngIf="employeeForm.controls.RoleId.invalid && (employeeForm.controls.RoleId.dirty || employeeForm.controls.RoleId.touched)">
+                        <small class="text-danger" *ngIf="employeeForm.controls.RoleId.errors.required">
+                            Location is required.
+                        </small>
                     </div>
                 </div>
             </div>
@@ -85,9 +105,14 @@
                 <label class="control-label col-xs-4">Location</label>
                 <div class="col-xs-8">
                     <div class="input-group col-xs-12">
-                        <select class="form-control" formControlName="LocationId">
+                        <select class="form-control" formControlName="LocationId" (ngModelChange)="updateSelectBoxOnList(locations, employeeForm.controls.LocationId.value, employeeForm.controls.LocationName)">
                             <option *ngFor="let item of locations" value="{{item.Id}}">{{item.Name}}</option>
                         </select>
+                    </div>
+                    <div *ngIf="employeeForm.controls.LocationId.invalid && (employeeForm.controls.LocationId.dirty || employeeForm.controls.LocationId.touched)">
+                        <small class="text-danger" *ngIf="employeeForm.controls.LocationId.errors.required">
+                            Location is required.
+                        </small>
                     </div>
                 </div>
             </div>
@@ -95,9 +120,14 @@
                 <label class="control-label col-xs-4">Favourite Menu</label>
                 <div class="col-xs-8">
                     <div class="input-group col-xs-12">
-                        <select class="form-control" formControlName="DefaultMenuId">
+                        <select class="form-control" formControlName="DefaultMenuId" (ngModelChange)="updateSelectBoxOnList(menus, employeeForm.controls.DefaultMenuId.value, employeeForm.controls.DefaultMenuName)">
                             <option *ngFor="let item of menus" value="{{item.Id}}">{{item.Name}}</option>
                         </select>
+                    </div>
+                    <div *ngIf="employeeForm.controls.DefaultMenuId.invalid && (employeeForm.controls.DefaultMenuId.dirty || employeeForm.controls.DefaultMenuId.touched)">
+                        <small class="text-danger" *ngIf="employeeForm.controls.DefaultMenuId.errors.required">
+                            Favourite Menu is required.
+                        </small>
                     </div>
                 </div>
             </div>

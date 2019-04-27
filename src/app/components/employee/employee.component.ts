@@ -15,7 +15,7 @@ export class EmployeeComponent implements OnInit {
 
     constructor(private employeeService: EmployeeService, private menuoptionsService: MenuoptionsService, private userrolesService: UserrolesService, private locationService: LocationService) { }
 
-    employees: Employee[] = [];
+    employees: any = [];
     roles: UserRoles[] = [];
     locations: Location[] = [];
     menus: MenuOptions[] = [];
@@ -82,7 +82,7 @@ export class EmployeeComponent implements OnInit {
                 LastName: this.employeeForm.controls["LastName"].value,
                 NickName: this.employeeForm.controls["NickName"].value,
                 Mobile: this.employeeForm.controls["Mobile"].value,
-                Email: this.employeeForm.controls["EmailId"].value,
+                Email: this.employeeForm.controls["Email"].value,
                 Password: this.employeeForm.controls["Password"].value,
                 Active: this.employeeForm.controls["Active"].value,
                 CreatedOnUtc: this.employeeForm.controls["CreatedOnUtc"].value,
@@ -101,6 +101,14 @@ export class EmployeeComponent implements OnInit {
                 .subscribe(r => {
                     this.refreshList(r);
                 });
+        }
+        else {
+            this.employeeForm.controls["FirstName"].markAsDirty();
+            this.employeeForm.controls["Email"].markAsDirty();
+            this.employeeForm.controls["Password"].markAsDirty();
+            this.employeeForm.controls["RoleId"].markAsDirty();
+            this.employeeForm.controls["LocationId"].markAsDirty();
+            this.employeeForm.controls["DefaultMenuId"].markAsDirty();
         }
     }
 
@@ -137,7 +145,7 @@ export class EmployeeComponent implements OnInit {
                 LastName: this.employeeForm.controls["LastName"].value,
                 NickName: this.employeeForm.controls["NickName"].value,
                 Mobile: this.employeeForm.controls["Mobile"].value,
-                Email: this.employeeForm.controls["EmailId"].value,
+                Email: this.employeeForm.controls["Email"].value,
                 Password: this.employeeForm.controls["Password"].value,
                 Active: this.employeeForm.controls["Active"].value,
                 CreatedOnUtc: this.employeeForm.controls["CreatedOnUtc"].value,
@@ -157,6 +165,14 @@ export class EmployeeComponent implements OnInit {
                     this.refreshList(item);
                 });
         }
+        else {
+            this.employeeForm.controls["FirstName"].markAsDirty();
+            this.employeeForm.controls["Email"].markAsDirty();
+            this.employeeForm.controls["Password"].markAsDirty();
+            this.employeeForm.controls["RoleId"].markAsDirty();
+            this.employeeForm.controls["LocationId"].markAsDirty();
+            this.employeeForm.controls["DefaultMenuId"].markAsDirty();
+        }
     }
 
     ondelete(emp: Employee) {
@@ -173,11 +189,16 @@ export class EmployeeComponent implements OnInit {
                     this.refreshList(null);
                 });
         }
+        else {
+            alert("hi");
+        }
     }
 
     refreshList(r: Employee) {
         if (this.action == "add") {
             this.employees.splice(0, 0, r);
+            $("#list").show(500);
+            $("#add").hide(500);
         }
         if (this.action == "edit") {
             this.employees.forEach((item, index) => {
@@ -185,6 +206,8 @@ export class EmployeeComponent implements OnInit {
                     this.employees.splice(index, 1, r);
                 }
             });
+            $("#list").show(500);
+            $("#add").hide(500);
         }
         if (this.action == "delete") {
             this.employees.forEach((item, index) => {
@@ -192,6 +215,13 @@ export class EmployeeComponent implements OnInit {
                     this.employees.splice(index, 1);
                 }
             });
+        }
+    }
+
+    updateSelectBoxOnList(array, Id, control) {
+        var item = array.filter(h => h.Id == Id)[0];
+        if (item != undefined) {
+            control.setValue(item["Name"]);
         }
     }
 }

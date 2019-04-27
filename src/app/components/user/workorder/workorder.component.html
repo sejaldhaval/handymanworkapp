@@ -1,7 +1,12 @@
 
 <div class="fixed-top pt-2 pr-2" style="margin-left: 35px;">
     <span class="btn btn-sm">Work Order</span>
+    <button *ngIf="action != 'Add' && action != 'Edit'" class="btn btn-sm btn-info ml-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Filter
+    </button>
 </div>
+
+
 <div id="list">
     <div class="container-content-start p-0 collapse" id="collapseExample">
         <div class="row">
@@ -26,7 +31,7 @@
         </div>
     </div>
     <div class="card mb-2" *ngFor="let item of maintenanceRequestList" [ngClass]="{ 'prioritylow' : item.MaintenancePriorityId == 3,'prioritymedium' : item.MaintenancePriorityId == 2,'priorityhigh' : item.MaintenancePriorityId == 1 }">
-        <div class="card-body p-2" (click)="onupdate(item)">
+        <div class="card-body p-2">
             <div ngbDropdown placement="bottom-right" class="d-inline-block d-flex float-right">
                 <button class="btn-sm btn btn-outline-secondary" id="dropdownBasic2" ngbDropdownToggle></button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
@@ -35,142 +40,142 @@
                 </div>
             </div>
             <h6 class="workorder-title card-title">{{item.Description}}</h6>
-            <div class="card-text mb-0"><span class="status" [ngClass]="{ 'pending' : item.MaintenanceIssueStatusId == 1,'completed' : item.MaintenanceIssueStatusId == 2, 'onhold' : item.MaintenanceIssueStatusId == 3 }">{{item.MaintenanceIssueStatusName}}</span>{{item.RoomName}}&nbsp;&nbsp;<i class="fas fa-user"></i>&nbsp;&nbsp;{{item.AssignedEmployeeName}}</div>
-            <div class="card-text mb-0"><i class="fas fa-map-marker-alt"></i>&nbsp; {{item.LocationName}}<i class="fas fa-calendar-alt"></i>&nbsp; {{item.CreatedOnUtc | date: 'dd/MM/yyyy hh:mm'}}</div>
+            <div class="card-text mb-0"><span class="status" [ngClass]="{ 'pending' : item.MaintenanceIssueStatusId == 1,'completed' : item.MaintenanceIssueStatusId == 2, 'onhold' : item.MaintenanceIssueStatusId == 3 }">{{item.MaintenanceIssueStatusName}}</span>&nbsp;{{item.RoomName}}&nbsp;&nbsp;<i class="fas fa-user"></i>&nbsp;&nbsp;{{item.AssignedEmployeeName}}</div>
+            <div class="card-text mb-0"><i class="fas fa-map-marker-alt"></i>&nbsp;{{item.LocationName}}&nbsp;<i class="fas fa-calendar-alt"></i>&nbsp;{{item.CreatedOnUtc | date: 'dd/MM/yyyy hh:mm'}}</div>
         </div>
     </div>
-    <div class="fixed-bottom">
+
+    <div class="fixed-bottom mb-2 mr-2">
         <button class="btn btn-info float-right" (click)="oncreate()">Create Request <span class="fas fa-plus"></span></button>
     </div>
-
 </div>
 
-    
-    <div id="add" class="AddReq-form-style pl-2 pr-2" style="display:none;">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="detail-tab" data-toggle="tab" href="#detail" role="tab" aria-controls="detail" aria-selected="true">Details</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="false">Updates</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="detail" role="tabpanel" aria-labelledby="detail-tab">
-                <div class="AddReq-form">
-                    <form class="pt-2" novalidate [formGroup]="maintenanceRequestForm">
-                        <div class="form-group">
-                            <label for="Property">Property<small class="text-danger">*</small></label>
-                            <div class="btn-cont">
-                                <button class="status-btn" [ngClass]="{ 'status-active' : maintenanceRequestForm.controls.LocationId.value == item.Id  }" *ngFor="let item of locationList" (click)="locationChange(item)">{{item.Name}}</button>
-                            </div>
-                            <div *ngIf="maintenanceRequestForm.controls.LocationId.invalid && (maintenanceRequestForm.controls.LocationId.dirty || maintenanceRequestForm.controls.LocationId.touched)">
-                                <small class="text-danger" *ngIf="maintenanceRequestForm.controls.LocationId.errors.required">
-                                    Location is required.
-                                </small>
-                            </div>
+
+<div id="add" class="AddReq-form-style pl-2 pr-2" style="display:none;">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="detail-tab" data-toggle="tab" href="#detail" role="tab" aria-controls="detail" aria-selected="true">Details</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="false">Updates</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="detail" role="tabpanel" aria-labelledby="detail-tab">
+            <div class="AddReq-form">
+                <form class="pt-2" novalidate [formGroup]="maintenanceRequestForm">
+                    <div class="form-group">
+                        <label for="Property">Property<small class="text-danger">*</small></label>
+                        <div class="btn-cont">
+                            <button class="status-btn" [ngClass]="{ 'status-active' : maintenanceRequestForm.controls.LocationId.value == item.Id  }" *ngFor="let item of locationList" (click)="locationChange(item)">{{item.Name}}</button>
                         </div>
-                        <div class="form-group">
-                            <label for="Room">Room<small class="text-danger">*</small></label>
-                            <select class="form-control" formControlName="RoomId" (ngModelChange)="updateRoomSelect(roomList, maintenanceRequestForm.controls.RoomId.value, maintenanceRequestForm.controls.RoomName)">
-                                <option value="0">Select Room...</option>
-                                <option *ngFor="let item of roomList" [value]="item.Id">{{item.Name}}</option>
-                            </select>
-                            <div *ngIf="maintenanceRequestForm.controls.RoomId.invalid && (maintenanceRequestForm.controls.RoomId.dirty || maintenanceRequestForm.controls.RoomId.touched)">
-                                <small class="text-danger" *ngIf="maintenanceRequestForm.controls.RoomId.errors.required">
-                                    Room is required.
-                                </small>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="Priority">Priority<small class="text-danger">*</small></label>
-                            <div class="btn-cont">
-                                <button class="status-btn" [ngClass]="{ 'status-active' : maintenanceRequestForm.controls.MaintenancePriorityId.value == item.Id  }" *ngFor="let item of maintenancePriorityList" (click)="priorityChange(item)">{{item.Name}}</button>
-                            </div>
-                            <div *ngIf="maintenanceRequestForm.controls.MaintenancePriorityId.invalid && (maintenanceRequestForm.controls.MaintenancePriorityId.dirty || maintenanceRequestForm.controls.MaintenancePriorityId.touched)">
-                                <small class="text-danger" *ngIf="maintenanceRequestForm.controls.MaintenancePriorityId.errors.required">
-                                    Priority is required.
-                                </small>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="Description">Issue To Fix<small class="text-danger">*</small></label>
-                            <textarea class="form-control" formControlName="Description"></textarea>
-                            <div *ngIf="maintenanceRequestForm.controls.Description.invalid && (maintenanceRequestForm.controls.Description.dirty || maintenanceRequestForm.controls.Description.touched)">
-                                <small class="text-danger" *ngIf="maintenanceRequestForm.controls.Description.errors.required">
-                                    Description is required.
-                                </small>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="Description">Attach Photo</label>
-                            <div class="custom-file">
-                                <input type="file" accept='image/*' class="custom-file-input" id="AddPhotos" (change)="handleFileInput($event.target.files)">
-                                <label class="custom-file-label" for="AddPhotos">Choose file...</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <img [src]="serviceImage.Image" height="200" class="img-fluid img-thumbnail" *ngIf="serviceImage.Image" style="height: 200px; width:200px;" (click)="showImage()">
-                        </div>
-                        <div class="form-group">
-                            <label for="Status">Status<small class="text-danger">*</small></label>
-                            <div class="btn-cont">
-                                <button class="status-btn" [ngClass]="{ 'status-active' : maintenanceRequestForm.controls.MaintenanceIssueStatusId.value == item.Id  }" *ngFor="let item of maintenanceIssueStatusList" (click)="statusChange(item)">{{item.Name}}</button>
-                            </div>
-                            <div *ngIf="maintenanceRequestForm.controls.MaintenanceIssueStatusId.invalid && (maintenanceRequestForm.controls.MaintenanceIssueStatusId.dirty || maintenanceRequestForm.controls.MaintenanceIssueStatusId.touched)">
-                                <small class="text-danger" *ngIf="maintenanceRequestForm.controls.MaintenanceIssueStatusId.errors.required">
-                                    Status is required.
-                                </small>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="AssignTo">Assign To<small class="text-danger">*</small></label>
-                            <select class="form-control" formControlName="AssignedEmployeeId" (ngModelChange)="updateEmployeeSelect(employeeList, maintenanceRequestForm.controls.AssignedEmployeeId.value, maintenanceRequestForm.controls.AssignedEmployeeName)">
-                                <option value="0">Assign To...</option>
-                                <option *ngFor="let item of employeeList" [value]="item.Id">{{item.FirstName}}</option>
-                            </select>
-                            <div *ngIf="maintenanceRequestForm.controls.AssignedEmployeeId.invalid && (maintenanceRequestForm.controls.AssignedEmployeeId.dirty || maintenanceRequestForm.controls.AssignedEmployeeId.touched)">
-                                <small class="text-danger" *ngIf="maintenanceRequestForm.controls.AssignedEmployeeId.errors.required">
-                                    Assigned Employee is required.
-                                </small>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="update" role="tabpanel" aria-labelledby="update-tab">
-                <div class="form-group" style="padding-bottom: 200px;">
-                    <div class="card mb-3" *ngFor="let item of updateList">
-                        <div class="card-header p-1">
-                            <div>
-                                {{item.Comment}}
-                            </div>
-                            <small class="float-right">
-                                Created By: {{item.CreatedByName}}
+                        <div *ngIf="maintenanceRequestForm.controls.LocationId.invalid && (maintenanceRequestForm.controls.LocationId.dirty || maintenanceRequestForm.controls.LocationId.touched)">
+                            <small class="text-danger" *ngIf="maintenanceRequestForm.controls.LocationId.errors.required">
+                                Location is required.
                             </small>
                         </div>
                     </div>
-                </div>
-                <form class="pt-2" novalidate [formGroup]="maintenanceCommentForm">
-                    <div class="form-group mb-0 fixed-bottom">
-                        <div class="pl-2 pr-2">
-                            <div class="input-group mb-2">
-                                <input type="text" class="form-control" formControlName="Comment">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" (click)="createComment()">Send</button>
-                                </div>
-                            </div>
+                    <div class="form-group">
+                        <label for="Room">Room<small class="text-danger">*</small></label>
+                        <select class="form-control" formControlName="RoomId" (ngModelChange)="updateRoomSelect(roomList, maintenanceRequestForm.controls.RoomId.value, maintenanceRequestForm.controls.RoomName)">
+                            <option value="0">Select Room...</option>
+                            <option *ngFor="let item of roomList" [value]="item.Id">{{item.Name}}</option>
+                        </select>
+                        <div *ngIf="maintenanceRequestForm.controls.RoomId.invalid && (maintenanceRequestForm.controls.RoomId.dirty || maintenanceRequestForm.controls.RoomId.touched)">
+                            <small class="text-danger" *ngIf="maintenanceRequestForm.controls.RoomId.errors.required">
+                                Room is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Priority">Priority<small class="text-danger">*</small></label>
+                        <div class="btn-cont">
+                            <button class="status-btn" [ngClass]="{ 'status-active' : maintenanceRequestForm.controls.MaintenancePriorityId.value == item.Id  }" *ngFor="let item of maintenancePriorityList" (click)="priorityChange(item)">{{item.Name}}</button>
+                        </div>
+                        <div *ngIf="maintenanceRequestForm.controls.MaintenancePriorityId.invalid && (maintenanceRequestForm.controls.MaintenancePriorityId.dirty || maintenanceRequestForm.controls.MaintenancePriorityId.touched)">
+                            <small class="text-danger" *ngIf="maintenanceRequestForm.controls.MaintenancePriorityId.errors.required">
+                                Priority is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Issue To Fix<small class="text-danger">*</small></label>
+                        <textarea class="form-control" formControlName="Description"></textarea>
+                        <div *ngIf="maintenanceRequestForm.controls.Description.invalid && (maintenanceRequestForm.controls.Description.dirty || maintenanceRequestForm.controls.Description.touched)">
+                            <small class="text-danger" *ngIf="maintenanceRequestForm.controls.Description.errors.required">
+                                Description is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Attach Photo</label>
+                        <div class="custom-file">
+                            <input type="file" accept='image/*' class="custom-file-input" id="AddPhotos" (change)="handleFileInput($event.target.files)">
+                            <label class="custom-file-label" for="AddPhotos">Choose file...</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <img [src]="serviceImage.Image" height="200" class="img-fluid img-thumbnail" *ngIf="serviceImage.Image" style="height: 200px; width:200px;" (click)="showImage()">
+                    </div>
+                    <div class="form-group">
+                        <label for="Status">Status<small class="text-danger">*</small></label>
+                        <div class="btn-cont">
+                            <button class="status-btn" [ngClass]="{ 'status-active' : maintenanceRequestForm.controls.MaintenanceIssueStatusId.value == item.Id  }" *ngFor="let item of maintenanceIssueStatusList" (click)="statusChange(item)">{{item.Name}}</button>
+                        </div>
+                        <div *ngIf="maintenanceRequestForm.controls.MaintenanceIssueStatusId.invalid && (maintenanceRequestForm.controls.MaintenanceIssueStatusId.dirty || maintenanceRequestForm.controls.MaintenanceIssueStatusId.touched)">
+                            <small class="text-danger" *ngIf="maintenanceRequestForm.controls.MaintenanceIssueStatusId.errors.required">
+                                Status is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="AssignTo">Assign To<small class="text-danger">*</small></label>
+                        <select class="form-control" formControlName="AssignedEmployeeId" (ngModelChange)="updateEmployeeSelect(employeeList, maintenanceRequestForm.controls.AssignedEmployeeId.value, maintenanceRequestForm.controls.AssignedEmployeeName)">
+                            <option value="0">Assign To...</option>
+                            <option *ngFor="let item of employeeList" [value]="item.Id">{{item.FirstName}}</option>
+                        </select>
+                        <div *ngIf="maintenanceRequestForm.controls.AssignedEmployeeId.invalid && (maintenanceRequestForm.controls.AssignedEmployeeId.dirty || maintenanceRequestForm.controls.AssignedEmployeeId.touched)">
+                            <small class="text-danger" *ngIf="maintenanceRequestForm.controls.AssignedEmployeeId.errors.required">
+                                Assigned Employee is required.
+                            </small>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="fixed-top pt-2 pr-2" style="margin-left: 35px;">
-                <button class="btn btn-sm btn-info float-right" (click)="create()" *ngIf="action == 'Add'"><i class="fas fa-save"></i></button>
-                <button class="btn btn-sm btn-info float-right" (click)="update()" *ngIf="action == 'Edit'"><i class="fas fa-save"></i></button>
-                <button class="btn btn-sm float-right mr-2" (click)="onlist()"><i class="fas fa-window-close"></i></button>
+        </div>
+        <div class="tab-pane fade" id="update" role="tabpanel" aria-labelledby="update-tab">
+            <div class="form-group" style="padding-bottom: 200px;">
+                <div class="card mb-3" *ngFor="let item of updateList">
+                    <div class="card-header p-1">
+                        <div>
+                            {{item.Comment}}
+                        </div>
+                        <small class="float-right">
+                            Created By: {{item.CreatedByName}} at {{item.CreatedOnUtc | date: 'dd/MM/yyyy hh:mm' }}
+                        </small>
+                    </div>
+                </div>
             </div>
+            <form class="pt-2" novalidate [formGroup]="maintenanceCommentForm">
+                <div class="form-group mb-0 fixed-bottom">
+                    <div class="pl-2 pr-2">
+                        <div class="input-group mb-2">
+                            <input type="text" class="form-control" formControlName="Comment">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" (click)="createComment()">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="fixed-top pt-2 pr-2" style="margin-left: 35px;">
+            <button class="btn btn-sm btn-info float-right" (click)="create()" *ngIf="action == 'Add'">Save</button>
+            <button class="btn btn-sm btn-info float-right" (click)="update()" *ngIf="action == 'Edit'">Save</button>
+            <button class="btn btn-sm float-right mr-2" (click)="onlist()">Cancel</button>
         </div>
     </div>
+</div>
 
 <div class="modal fade" id="workOrderModal" tabindex="-1" role="dialog" aria-labelledby="workOrderModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -279,21 +284,25 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">Image Attached</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
         <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalModalCenterTitle">Image Attached</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <div class="modal-body">
-                <img [src]="serviceImage.Image" height="200" class="img-fluid img-thumbnail" *ngIf="serviceImage.Image">
+                <div><img [src]="serviceImage.Image" height="400" width="400" class="img-fluid img-thumbnail {{rotate}}" *ngIf="serviceImage.Image"></div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-secondary" (click)="rotateImage('left')"><i class="fas fa-undo"></i></button>
+                    <button type="button" class="btn btn-secondary" (click)="rotateImage('right')"><i class="fas fa-redo-alt"></i></button>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 
 

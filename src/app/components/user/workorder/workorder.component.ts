@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { MaintenanceService, MaintenanceserviceService } from '../../../services/maintenanceservice.service';
@@ -9,6 +9,7 @@ import { MaintenancePriority, MaintenancepriorityService } from '../../../servic
 import { Room, RoomService } from '../../../services/room.service';
 import { MaintenanceServiceImages, MaintenanceserviceimagesService } from '../../../services/maintenanceserviceimages.service';
 import { MaintenanceServiceStatus, MaintenanceservicestatusService } from '../../../services/maintenanceservicestatus.service';
+
 declare var $: any;
 
 @Component({
@@ -99,7 +100,7 @@ export class WorkorderComponent implements OnInit {
         this.maintenanceRequestForm.reset();
         this.maintenanceRequestForm.controls["RoomId"].setValue(0);
         this.maintenanceRequestForm.controls["RoomName"].setValue("");
-        this.maintenanceRequestForm.controls["AssignedEmployeeId"].setValue(1);
+        this.maintenanceRequestForm.controls["AssignedEmployeeId"].setValue(3);
         this.maintenanceRequestForm.controls["AssignedEmployeeName"].setValue("Luke");
         this.maintenanceRequestForm.controls["MaintenanceIssueStatusId"].setValue(1);
         this.maintenanceRequestForm.controls["MaintenanceIssueStatusName"].setValue("Pending");
@@ -324,7 +325,7 @@ export class WorkorderComponent implements OnInit {
                     }
                     this.maintenanceRequestList.forEach((i, index) => {
                         if (i.Id == item.Id) {
-                            this.maintenanceRequestList.splice(index, 1);
+                            this.maintenanceRequestList.splice(index, 1, item);
                         }
                     });
                     this.onlist();
@@ -372,21 +373,22 @@ export class WorkorderComponent implements OnInit {
         $("#deleteRequestModal").modal("hide");
     }
     createComment() {
+        debugger;
         if (this.maintenanceCommentForm.valid) {
+            let userId: any = localStorage.getItem("UserId");
             let item: MaintenanceServiceStatus = {
                 Id: 0,
                 MaintenanceServiceId: this.maintenanceCommentForm.controls["MaintenanceServiceId"].value,
                 Comment: this.maintenanceCommentForm.controls["Comment"].value,
                 errorMessage: "",
                 errorStatus: false,
-                CreatedById: 1,
+                CreatedById: userId,
                 CreatedByName: "",
                 CreatedOnUtc: "",
-                UpdatedOnUtc:""
+                UpdatedOnUtc: ""
             };
             this.maintenanceservicestatusService.create(item)
                 .subscribe(r => {
-                    console.log(r);
                     this.updateList.splice(this.updateList.length, 0, r);
                     this.maintenanceCommentForm.controls["Comment"].setValue("");
                 });
@@ -442,4 +444,21 @@ export class WorkorderComponent implements OnInit {
         }
         $("#workOrderModal").modal("hide");
     }
+    public rotate: string = "";
+    public angle: number = 0;
+
+    rotateImage(direction: string) {
+        if (direction == "left") {
+            if (this.angle >= 90) {
+                this.angle = this.angle - 90;
+            }
+        }
+        if (direction == "right") {
+            if (this.angle <= 270) {
+                this.angle = this.angle + 90;
+            }
+        }
+        this.rotate = "rotate" + this.angle;
+    }
+    
 }

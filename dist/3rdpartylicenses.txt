@@ -397,13 +397,7 @@ THE SOFTWARE.
 
 @angular/material/snack-bar
 
-@angular/material/core
-
-@angular/material/list
-
 @angular/material/sidenav
-
-@angular/material/divider
 
 zone.js
 MIT
