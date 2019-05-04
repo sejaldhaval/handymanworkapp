@@ -1,0 +1,95 @@
+
+<div class="fixed-top pt-2 pr-2" style="margin-left: 35px;">
+    <span class="btn btn-sm">Schedule</span>
+</div>
+<div class="fixed-top pt-2 pr-2" style="margin-left: 35px;">
+    <button class="btn btn-sm btn-info float-right" (click)="save()">Save</button>
+    <button class="btn btn-sm float-right mr-2" (click)="reset()">Cancel</button>
+</div>
+<div class="pl-3 pr-3">
+      <form class="form-inline">
+          <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <label class="input-group-text">Employees</label>
+              </div>
+              <select class="custom-select" id="inputGroupSelect01">
+                <option selected>Choose...</option>
+                <option value="item.Id" *ngFor="let item of employees">{{item.FirstName}}</option>
+              </select>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <label class="input-group-text">Work Period</label>
+                </div>
+                <input type="date" class="form-control">
+              </div>
+              <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text">To</label>
+                  </div>
+                  <input type="date" class="form-control">
+                </div>
+        </form>
+    <div class="row">
+      <div class="col table-responsive">
+          <table class="table table-sm table-hover">
+              <thead>
+                  <tr class="row">
+                <th class="col-2">Week1</th>
+                <th class="col-2">In</th>
+                <th class="col-2">Out</th>
+                <th class="col-2">In</th>
+                <th class="col-2">Out</th>
+                <th class="col-2">Total Hours</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr class="row" *ngFor="let item of week1">
+                  <td class="col-2">{{item.day}}</td>
+                  <td class="col-2"><input type="time" [(ngModel)]="item.in1" (keyup)="onKey(item)" class="form-control"></td>
+                  <td class="col-2"><input type="time" [(ngModel)]="item.out1" class="form-control"></td>
+                  <td class="col-2"><input type="time" [(ngModel)]="item.in2" class="form-control"></td>
+                  <td class="col-2"><input type="time" [(ngModel)]="item.out2" class="form-control"></td>
+                  <td class="col-2"><span>{{item.total}}</span></td>
+                </tr>
+                <tr class="row">
+                   <td class="col-10"><div class="d-flex float-right">Week1 Total Hours</div></td>
+                    <td class="col-2"><span>6</span></td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col table-responsive">
+            <table class="table table-sm table-hover">
+                <thead>
+                    <tr class="row">
+                  <th class="col-2">Week2</th>
+                  <th class="col-2">In</th>
+                  <th class="col-2">Out</th>
+                  <th class="col-2">In</th>
+                  <th class="col-2">Out</th>
+                  <th class="col-2">Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr class="row" *ngFor="let item of week2">
+                    <td class="col-2">{{item.day}}</td>
+                    <td class="col-2"><input type="time" [(ngModel)]="item.in1" class="form-control"></td>
+                    <td class="col-2"><input type="time" [(ngModel)]="item.out1" class="form-control"></td>
+                    <td class="col-2"><input type="time" [(ngModel)]="item.in2" class="form-control"></td>
+                    <td class="col-2"><input type="time" [(ngModel)]="item.out2" class="form-control"></td>
+                    <td class="col-2"><span>{{item.total}}</span></td>
+                  </tr>
+                  <tr class="row">
+                      <td class="col-10"><div class="d-flex float-right">Week2 Total Hours</div></td>
+                      <td class="col-2"><span>6</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+  </div>
+
+

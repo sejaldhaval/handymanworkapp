@@ -53,6 +53,7 @@ import { PurchaseOrderStatusComponent } from './components/purchase-order-status
 import { UserRolesComponent } from './components/user-roles/user-roles.component';
 import { UserRolesMenuOptionsMappingComponent } from './components/user-roles-menu-options-mapping/user-roles-menu-options-mapping.component';
 import { VendorComponent } from './components/vendor/vendor.component';
+import { ScheduleComponent } from './components/schedule/schedule.component';
 
 @NgModule({
     declarations: [
@@ -78,7 +79,8 @@ import { VendorComponent } from './components/vendor/vendor.component';
         PurchaseOrderStatusComponent,
         UserRolesComponent,
         UserRolesMenuOptionsMappingComponent,
-        VendorComponent
+        VendorComponent,
+        ScheduleComponent
     ],
     imports: [
         BrowserModule,

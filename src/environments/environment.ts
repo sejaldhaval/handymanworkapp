@@ -4,8 +4,10 @@
 
 export const environment = {
     production: false,
-    api: 'http://localhost:50638/api',
-    token: 'http://localhost:50638/token'
+    //api: 'http://localhost:50638/api',
+    //token: 'http://localhost:50638/token'
+    api: 'https://handymanworkappapi.azurewebsites.net/api',
+    token: 'https://handymanworkappapi.azurewebsites.net/token',
 };
 
 /*

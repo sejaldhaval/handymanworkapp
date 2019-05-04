@@ -23,6 +23,7 @@ import { PurchaseOrderStatusComponent } from './components/purchase-order-status
 import { UserRolesComponent } from './components/user-roles/user-roles.component';
 import { UserRolesMenuOptionsMappingComponent } from './components/user-roles-menu-options-mapping/user-roles-menu-options-mapping.component';
 import { VendorComponent } from './components/vendor/vendor.component';
+import { ScheduleComponent } from './components/schedule/schedule.component';
 
 
 import { AuthGuard } from 'src/app/auth.guard';
@@ -49,7 +50,8 @@ const routes: Routes = [
     { path: 'PurchaseOrderStatus', component: PurchaseOrderStatusComponent, canActivate: [AuthGuard] },
     { path: 'UserRoles', component: UserRolesComponent, canActivate: [AuthGuard] },
     { path: 'UserRolesMenuOptionsMapping', component: UserRolesMenuOptionsMappingComponent, canActivate: [AuthGuard] },
-    { path: 'Vendor', component: VendorComponent, canActivate: [AuthGuard] }];
+    { path: 'Vendor', component: VendorComponent, canActivate: [AuthGuard] },
+    { path: 'Schedule', component: ScheduleComponent, canActivate: [AuthGuard] }];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
