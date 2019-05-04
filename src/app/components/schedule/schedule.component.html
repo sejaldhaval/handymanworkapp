@@ -7,32 +7,35 @@
     <button class="btn btn-sm float-right mr-2" (click)="reset()">Cancel</button>
 </div>
 <div class="pl-3 pr-3">
-      <form class="form-inline">
-          <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                <label class="input-group-text">Employees</label>
-              </div>
-              <select class="custom-select" id="inputGroupSelect01">
-                <option selected>Choose...</option>
-                <option value="item.Id" *ngFor="let item of employees">{{item.FirstName}}</option>
-              </select>
-            </div>
+  <div class="row">
+        <form class="form-inline">
             <div class="input-group mb-2">
                 <div class="input-group-prepend">
-                  <label class="input-group-text">Work Period</label>
+                  <label class="input-group-text">Employees</label>
                 </div>
-                <input type="date" class="form-control">
+                <select class="custom-select" id="inputGroupSelect01">
+                  <option selected>Choose...</option>
+                  <option value="item.Id" *ngFor="let item of employees">{{item.FirstName}}</option>
+                </select>
               </div>
               <div class="input-group mb-2">
                   <div class="input-group-prepend">
-                    <label class="input-group-text">To</label>
+                    <label class="input-group-text">Work Period</label>
                   </div>
                   <input type="date" class="form-control">
                 </div>
-        </form>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text">To</label>
+                    </div>
+                    <input type="date" class="form-control">
+                  </div>
+          </form>
+  </div>
+    
     <div class="row">
       <div class="col table-responsive">
-          <table class="table table-sm table-hover">
+          <table class="table table-sm table-hover" style="min-width: 800px">
               <thead>
                   <tr class="row">
                 <th class="col-2">Week1</th>
@@ -62,7 +65,7 @@
     </div>
     <div class="row">
         <div class="col table-responsive">
-            <table class="table table-sm table-hover">
+            <table class="table table-sm table-hover"  style="min-width: 800px">
                 <thead>
                     <tr class="row">
                   <th class="col-2">Week2</th>
