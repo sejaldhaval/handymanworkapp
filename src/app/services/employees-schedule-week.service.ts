@@ -12,13 +12,20 @@ const httpOptions = {
 export class EmployeeScheduleWeek {
     Id: number;
     EmployeeScheduleId: number;
-    Monday: string;
-    Tuesday: string;
-    Wednesday: string;
-    Thursday: string;
-    Friday: string;
-    Saturday: string;
-    Sunday: string;
+    MondayIn: string;
+    MondayOut: string;
+    TuesdayIn: string;
+    TuesdayOut: string;
+    WednesdayIn: string;
+    WednesdayOut: string;
+    ThursdayIn: string;
+    ThursdayOut: string;
+    FridayIn: string;
+    FridayOut: string;
+    SaturdayIn: string;
+    SaturdayOut: string;
+    SundayIn: string;
+    SundayOut: string;
     CreatedOnUtc?: any;
     UpdatedOnUtc?: any
     errorMessage?: string;

@@ -16,7 +16,31 @@ export class ScheduleComponent implements OnInit {
     public startDate: string = "";
     public endDate: string = "";
     public employeeScheduleList: EmployeeSchedule;
-    public employeeScheduleWeekList: EmployeeScheduleWeek;
+    public employeeScheduleWeekList: any = {
+        Id: 0,
+        EmployeeScheduleId: 0,
+        MondayIn: "",
+        MondayOut: "",
+        MondayHours: "",
+        TuesdayIn: "",
+        TuesdayOut: "",
+        TuesdayHours: "",
+        WednesdayIn: "",
+        WednesdayOut: "",
+        WednesdayHours: "",
+        ThursdayIn: "",
+        ThursdayOut: "",
+        ThursdayHours: "",
+        FridayIn: "",
+        FridayOut: "",
+        FridayHours: "",
+        SaturdayIn: "",
+        SaturdayOut: "",
+        SaturdayHours: "",
+        SundayIn: "",
+        SundayOut: "",
+        SundayHours: ""
+    };
     public isScheduleAvailable = false;
     public isScheduleWeekAvailable = false;
     public dateError: string = "";
@@ -42,6 +66,12 @@ export class ScheduleComponent implements OnInit {
         }
     }
 
+    calHours() {
+        console.log(this.scheduleForm.controls.MondayOut.value, this.scheduleForm.controls.MondayIn.value);
+        if (this.scheduleForm.controls.MondayOut.value != "" && this.scheduleForm.controls.MondayIn.value != "") {
+            //this.scheduleForm.controls.MondayHours.setValue(this.scheduleForm.controls.MondayOut.value - this.scheduleForm.controls.MondayIn.value);
+        }
+    }
 
     ngOnInit() {
         this.employeeService.listFiltered("Active=1")
@@ -82,13 +112,14 @@ export class ScheduleComponent implements OnInit {
             this.employeeScheduleService.listFiltered("EmployeeId=" + this.scheduleForm.controls.EmployeeId.value)
                 .subscribe(r => {
                     this.employeeScheduleList = r[0];
+                    console.log(this.employeeScheduleList);
                     if (this.employeeScheduleList) {
                         this.isScheduleAvailable = true;
                         this.scheduleForm.controls.Id.setValue(this.employeeScheduleList.Id);
-                        this.scheduleForm.controls.StartDate.setValue(this.employeeScheduleList.StartDate);
-                        this.scheduleForm.controls.EndDate.setValue(this.employeeScheduleList.EndDate);
+                        this.scheduleForm.controls.StartDate.setValue(this.employeeScheduleList.StartDate.split('T')[0]);
+                        this.scheduleForm.controls.EndDate.setValue(this.employeeScheduleList.EndDate.split('T')[0]);
                         var employeeScheduleId = this.employeeScheduleList.Id;
-                        //this.getEmployeeScheduleWeek(employeeScheduleId);
+                        this.getEmployeeScheduleWeek(employeeScheduleId);
                     }
                     else {
                         this.isScheduleAvailable = false;
@@ -114,6 +145,7 @@ export class ScheduleComponent implements OnInit {
     }
 
     getEmployeeScheduleWeek(employeeScheduleId) {
+        console.log("EmployeeScheduleId=" + employeeScheduleId);
         this.employeeScheduleWeekService.listFiltered("EmployeeScheduleId=" + employeeScheduleId)
             .subscribe(s => {
                 if (s[0]) {
@@ -125,13 +157,20 @@ export class ScheduleComponent implements OnInit {
                     let itemj: EmployeeScheduleWeek = {
                         Id: 0,
                         EmployeeScheduleId: employeeScheduleId,
-                        Monday: "",
-                        Tuesday: "",
-                        Wednesday: "",
-                        Thursday: "",
-                        Friday: "",
-                        Saturday: "",
-                        Sunday: ""
+                        MondayIn: "",
+                        MondayOut: "",
+                        TuesdayIn: "",
+                        TuesdayOut: "",
+                        WednesdayIn: "",
+                        WednesdayOut: "",
+                        ThursdayIn: "",
+                        ThursdayOut: "",
+                        FridayIn: "",
+                        FridayOut: "",
+                        SaturdayIn: "",
+                        SaturdayOut: "",
+                        SundayIn: "",
+                        SundayOut: ""
                     }
                     this.employeeScheduleWeekService.create(itemj)
                         .subscribe(t => {

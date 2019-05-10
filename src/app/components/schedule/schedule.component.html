@@ -7,34 +7,34 @@
     <button class="btn btn-sm float-right mr-2" (click)="reset()">Cancel</button>
 </div>
 <div class="pl-3 pr-3">
-  <div class="row">
-      <form class="form-inline" novalidate [formGroup]="scheduleForm">
-          <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                  <label class="input-group-text">Employees</label>
-              </div>
-              <select class="custom-select" formControlName="EmployeeId" (ngModelChange)="getEmployeeSchedule()">
-                  <option value="0" selected>Choose...</option>
-                  <option value="{{item.Id}}" *ngFor="let item of employees">{{item.FirstName}}</option>
-              </select>
-          </div>
-          <div class="input-group mb-2 ml-1">
-              <div class="input-group-prepend">
-                  <label class="input-group-text">Work Period</label>
-              </div>
-              <input type="date" class="form-control" formControlName="StartDate | date: 'dd/MM/yyyy hh:mm'">
-          </div>
-          <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                  <label class="input-group-text">To</label>
-              </div>
-              <input type="date" class="form-control" formControlName="EndDate | date: 'dd/MM/yyyy hh:mm'">
-          </div>
-          <div class="input-group mb-2 ml-1" *ngIf="!isScheduleAvailable">
-              <button class="btn btn-info" (click)="addSchedule()">Add Schedule</button>
-          </div>
-      </form>
-  </div>
+    <div class="row">
+        <form class="form-inline" novalidate [formGroup]="scheduleForm">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Employees</label>
+                </div>
+                <select class="custom-select" formControlName="EmployeeId" (ngModelChange)="getEmployeeSchedule()">
+                    <option value="0" selected>Choose...</option>
+                    <option value="{{item.Id}}" *ngFor="let item of employees">{{item.FirstName}}</option>
+                </select>
+            </div>
+            <div class="input-group mb-2 ml-1">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">Work Period</label>
+                </div>
+                <input type="date" class="form-control" formControlName="StartDate">
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">To</label>
+                </div>
+                <input type="date" class="form-control" formControlName="EndDate">
+            </div>
+            <div class="input-group mb-2 ml-1" *ngIf="!isScheduleAvailable">
+                <button class="btn btn-info" (click)="addSchedule()">Add Schedule</button>
+            </div>
+        </form>
+    </div>
     <div class="row">
         <div class="col">
             <div class="alert alert-light" role="alert">
@@ -44,66 +44,68 @@
             </div>
         </div>
     </div>
-    <div class="row" style="display: none;">
-      <div class="col table-responsive">
-          <table class="table table-sm table-hover" style="min-width: 800px">
-              <thead>
-                  <tr class="row">
-                <th class="col-2">Week1</th>
-                <th class="col-2">In</th>
-                <th class="col-2">Out</th>
-                <th class="col-2">In</th>
-                <th class="col-2">Out</th>
-                <th class="col-2">Total Hours</th>
-              </tr>
-              </thead>
-              <tbody>
-                <tr class="row" *ngFor="let item of week1">
-                  <td class="col-2">{{item.day}}</td>
-                  <td class="col-2"><input type="time" [(ngModel)]="item.in1" class="form-control"></td>
-                  <td class="col-2"><input type="time" [(ngModel)]="item.out1" class="form-control"></td>
-                  <td class="col-2"><input type="time" [(ngModel)]="item.in2" class="form-control"></td>
-                  <td class="col-2"><input type="time" [(ngModel)]="item.out2" class="form-control"></td>
-                  <td class="col-2"><span>{{item.total}}</span></td>
-                </tr>
-                <tr class="row">
-                   <td class="col-10"><div class="d-flex float-right">Week1 Total Hours</div></td>
-                    <td class="col-2"><span>6</span></td>
-                  </tr>
-              </tbody>
-          </table>
-      </div>
-    </div>
-    <div class="row" style="display: none;">
+    <div class="row" *ngIf="isScheduleAvailable">
         <div class="col table-responsive">
-            <table class="table table-sm table-hover"  style="min-width: 800px">
+            <table class="table table-sm table-hover" style="min-width: 800px">
                 <thead>
                     <tr class="row">
-                  <th class="col-2">Week2</th>
-                  <th class="col-2">In</th>
-                  <th class="col-2">Out</th>
-                  <th class="col-2">In</th>
-                  <th class="col-2">Out</th>
-                  <th class="col-2">Total</th>
-                </tr>
+                        <th class="col-3">Week</th>
+                        <th class="col-3">In</th>
+                        <th class="col-3">Out</th>
+                        <th class="col-3">Total Hours</th>
+                    </tr>
                 </thead>
                 <tbody>
-                  <tr class="row" *ngFor="let item of week2">
-                    <td class="col-2">{{item.day}}</td>
-                    <td class="col-2"><input type="time" [(ngModel)]="item.in1" class="form-control"></td>
-                    <td class="col-2"><input type="time" [(ngModel)]="item.out1" class="form-control"></td>
-                    <td class="col-2"><input type="time" [(ngModel)]="item.in2" class="form-control"></td>
-                    <td class="col-2"><input type="time" [(ngModel)]="item.out2" class="form-control"></td>
-                    <td class="col-2"><span>{{item.total}}</span></td>
-                  </tr>
-                  <tr class="row">
-                      <td class="col-10"><div class="d-flex float-right">Week2 Total Hours</div></td>
-                      <td class="col-2"><span>6</span></td>
+                    <tr class="row">
+                        <td class="col-3">Monday</td>
+                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.MondayIn" name="in" (blur)="calHours()" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.MondayOut" name="out" (blur)="calHours()" class="form-control"></td>
+                        <td class="col-3">{{employeeScheduleWeekList.MondayHours}}</td>
+                    </tr>
+                    <tr class="row">
+                        <td class="col-3">Tuesday</td>
+                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.TuesdayIn" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.TuesdayOut" class="form-control"></td>
+                        <td class="col-3"></td>
+                    </tr>
+                    <tr class="row">
+                        <td class="col-3">Wednesday</td>
+                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.WednesdayIn" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.WednesdayOut" class="form-control"></td>
+                        <td class="col-3"></td>
+                    </tr>
+                    <tr class="row">
+                        <td class="col-3">Thursday</td>
+                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.ThursdayIn" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.ThursdayOut" class="form-control"></td>
+                        <td class="col-3"></td>
+                    </tr>
+                    <tr class="row">
+                        <td class="col-3">Friday</td>
+                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.FridayIn" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.FridayOut" class="form-control"></td>
+                        <td class="col-3"></td>
+                    </tr>
+                    <tr class="row">
+                        <td class="col-3">Saturday</td>
+                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.SaturdayIn" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.SaturdayOut" class="form-control"></td>
+                        <td class="col-3"></td>
+                    </tr>
+                    <tr class="row">
+                        <td class="col-3">Sunday</td>
+                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.SundayIn" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.SundayOut" class="form-control"></td>
+                        <td class="col-3"></td>
+                    </tr>
+                    <tr class="row">
+                        <td class="col-10"><div class="d-flex float-right">Week1 Total Hours</div></td>
+                        <td class="col-2"><span>6</span></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-      </div>
-  </div>
+    </div>
+</div>
 
 
