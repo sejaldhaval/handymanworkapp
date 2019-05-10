@@ -22,13 +22,13 @@
               <div class="input-group-prepend">
                   <label class="input-group-text">Work Period</label>
               </div>
-              <input type="date" class="form-control" formControlName="StartDate">
+              <input type="date" class="form-control" formControlName="StartDate | date: 'dd/MM/yyyy hh:mm'">
           </div>
           <div class="input-group mb-2">
               <div class="input-group-prepend">
                   <label class="input-group-text">To</label>
               </div>
-              <input type="date" class="form-control" formControlName="EndDate">
+              <input type="date" class="form-control" formControlName="EndDate | date: 'dd/MM/yyyy hh:mm'">
           </div>
           <div class="input-group mb-2 ml-1" *ngIf="!isScheduleAvailable">
               <button class="btn btn-info" (click)="addSchedule()">Add Schedule</button>
