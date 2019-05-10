@@ -16,7 +16,7 @@ export class ScheduleComponent implements OnInit {
     public startDate: string = "";
     public endDate: string = "";
     public employeeScheduleList: EmployeeSchedule;
-    public employeeScheduleWeekList: EmployeeScheduleWeek[] = [];
+    public employeeScheduleWeekList: EmployeeScheduleWeek;
     public isScheduleAvailable = false;
     public isScheduleWeekAvailable = false;
     public dateError: string = "";
@@ -85,7 +85,6 @@ export class ScheduleComponent implements OnInit {
                     if (this.employeeScheduleList) {
                         this.isScheduleAvailable = true;
                         this.scheduleForm.controls.Id.setValue(this.employeeScheduleList.Id);
-                        this.scheduleForm.controls.EmployeeId.setValue(this.employeeScheduleList.EmployeeId);
                         this.scheduleForm.controls.StartDate.setValue(this.employeeScheduleList.StartDate);
                         this.scheduleForm.controls.EndDate.setValue(this.employeeScheduleList.EndDate);
                         var employeeScheduleId = this.employeeScheduleList.Id;
@@ -117,9 +116,12 @@ export class ScheduleComponent implements OnInit {
     getEmployeeScheduleWeek(employeeScheduleId) {
         this.employeeScheduleWeekService.listFiltered("EmployeeScheduleId=" + employeeScheduleId)
             .subscribe(s => {
-                this.employeeScheduleWeekList = s;
-                if (this.employeeScheduleWeekList.length == 0) {
-                    this.isScheduleWeekAvailable = false;
+                if (s[0]) {
+                    this.isScheduleWeekAvailable = true;
+                    this.employeeScheduleWeekList = s[0];
+                }
+                else {
+                    this.isScheduleWeekAvailable = true;
                     let itemj: EmployeeScheduleWeek = {
                         Id: 0,
                         EmployeeScheduleId: employeeScheduleId,
@@ -135,10 +137,6 @@ export class ScheduleComponent implements OnInit {
                         .subscribe(t => {
                             this.employeeScheduleWeekList = t;
                         });
-                }
-                else {
-                    this.isScheduleWeekAvailable = true;
-                    this.employeeScheduleWeekList = s;
                 }
             });
     }
