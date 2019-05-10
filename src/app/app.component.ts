@@ -93,7 +93,6 @@ export class AppComponent implements OnInit {
                             activemenuIds = activemenuIds + "," + activeitem.Id;
                         });
                         activemenuIds = activemenuIds.substring(1);
-                        console.log(activemenuIds);
                         this.userrolesmenuoptionsmappingService.listFiltered("UserRoleId=" + emp.RoleId + " AND MenuOptionId IN (" + activemenuIds + ")")
                             .subscribe(menus => {
                                 this.menu = menus;

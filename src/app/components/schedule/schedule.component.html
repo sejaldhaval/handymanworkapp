@@ -8,32 +8,43 @@
 </div>
 <div class="pl-3 pr-3">
   <div class="row">
-        <form class="form-inline">
-            <div class="input-group mb-2">
-                <div class="input-group-prepend">
+      <form class="form-inline" novalidate [formGroup]="scheduleForm">
+          <div class="input-group mb-2">
+              <div class="input-group-prepend">
                   <label class="input-group-text">Employees</label>
-                </div>
-                <select class="custom-select" id="inputGroupSelect01">
-                  <option selected>Choose...</option>
-                  <option value="item.Id" *ngFor="let item of employees">{{item.FirstName}}</option>
-                </select>
               </div>
-              <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text">Work Period</label>
-                  </div>
-                  <input type="date" class="form-control">
-                </div>
-                <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text">To</label>
-                    </div>
-                    <input type="date" class="form-control">
-                  </div>
-          </form>
+              <select class="custom-select" formControlName="EmployeeId" (ngModelChange)="getEmployeeSchedule()">
+                  <option value="0" selected>Choose...</option>
+                  <option value="{{item.Id}}" *ngFor="let item of employees">{{item.FirstName}}</option>
+              </select>
+          </div>
+          <div class="input-group mb-2 ml-1">
+              <div class="input-group-prepend">
+                  <label class="input-group-text">Work Period</label>
+              </div>
+              <input type="date" class="form-control" formControlName="StartDate">
+          </div>
+          <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                  <label class="input-group-text">To</label>
+              </div>
+              <input type="date" class="form-control" formControlName="EndDate">
+          </div>
+          <div class="input-group mb-2 ml-1" *ngIf="!isScheduleAvailable">
+              <button class="btn btn-info" (click)="addSchedule()">Add Schedule</button>
+          </div>
+      </form>
   </div>
-    
     <div class="row">
+        <div class="col">
+            <div class="alert alert-light" role="alert">
+                <label *ngIf="scheduleForm.controls.EmployeeId.value == 0">Please Select Employee</label>
+                <label *ngIf="scheduleForm.errors">{{ scheduleForm.errors?.dates | json }}</label>
+                <label *ngIf="scheduleForm.controls.StartDate.value == '' || scheduleForm.controls.EndDate.value == ''"> Schedule is not available. Please select Employee and Work Period to add schedule.</label>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="display: none;">
       <div class="col table-responsive">
           <table class="table table-sm table-hover" style="min-width: 800px">
               <thead>
@@ -49,7 +60,7 @@
               <tbody>
                 <tr class="row" *ngFor="let item of week1">
                   <td class="col-2">{{item.day}}</td>
-                  <td class="col-2"><input type="time" [(ngModel)]="item.in1" (keyup)="onKey(item)" class="form-control"></td>
+                  <td class="col-2"><input type="time" [(ngModel)]="item.in1" class="form-control"></td>
                   <td class="col-2"><input type="time" [(ngModel)]="item.out1" class="form-control"></td>
                   <td class="col-2"><input type="time" [(ngModel)]="item.in2" class="form-control"></td>
                   <td class="col-2"><input type="time" [(ngModel)]="item.out2" class="form-control"></td>
@@ -63,7 +74,7 @@
           </table>
       </div>
     </div>
-    <div class="row">
+    <div class="row" style="display: none;">
         <div class="col table-responsive">
             <table class="table table-sm table-hover"  style="min-width: 800px">
                 <thead>

@@ -35,9 +35,13 @@ import { UserrolesService } from './services/userroles.service';
 import { UserrolesmenuoptionsmappingService } from './services/userrolesmenuoptionsmapping.service';
 import { VendorService } from './services/vendor.service';
 import { MaintenanceservicestatusService } from './services/maintenanceservicestatus.service';
+import { EmployeeScheduleService } from './services/employees-schedule.service';
+import { EmployeeScheduleWeekService } from './services/employees-schedule-week.service';
+
 import { AuthService } from './auth.service';
 import { AuthGuard } from 'src/app/auth.guard';
 import { AuthInterceptor } from 'src/app/auth.interceptor';
+
 import { EmployeeComponent } from './components/employee/employee.component';
 import { LocationComponent } from './components/location/location.component';
 import { RoomComponent } from './components/room/room.component';
@@ -118,7 +122,9 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
             multi: true
-        }
+        },
+        EmployeeScheduleService,
+        EmployeeScheduleWeekService
     ],
     bootstrap: [AppComponent]
 })
