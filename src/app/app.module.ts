@@ -7,6 +7,7 @@ import { SharedModule } from './shared-components/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material';
 import { DemoMaterialModule } from './material-module';
+import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -97,6 +98,8 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
         BrowserAnimationsModule,
         DemoMaterialModule,
         NgbModule.forRoot(),
+        DlDateTimeDateModule,
+        DlDateTimePickerModule
     ],
     providers: [
         HttpErrorHandlerService,
