@@ -59,13 +59,7 @@
                     <tr class="row">
                         <td class="col-3">Monday</td>
                         <td class="col-3">
-                            <!--<input type="time" [(ngModel)]="eswl.MondayIn" name="MondayIn" (blur)="calHours()" class="form-control">-->
-                                          <dl-date-time-picker startView="day"
-                                                               maxView="year"
-                                                               minView="minute"
-                                                               minuteStep="5"
-                                                               [(ngModel)]="eswl.MondayIn">
-                                          </dl-date-time-picker>
+                            <ngb-timepicker [(ngModel)]="eswl.MondayIn" [spinners]="false" [meridian]="true"></ngb-timepicker>      
                         </td>
                         <td class="col-3"><input type="time" [(ngModel)]="eswl.MondayOut" name="MondayOut" (blur)="calHours()" class="form-control"></td>
                         <td class="col-3">{{eswl.MondayHours}}</td>
