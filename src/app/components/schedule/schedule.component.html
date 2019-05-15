@@ -58,44 +58,52 @@
                 <tbody>
                     <tr class="row">
                         <td class="col-3">Monday</td>
-                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.MondayIn" name="in" (blur)="calHours()" class="form-control"></td>
-                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.MondayOut" name="out" (blur)="calHours()" class="form-control"></td>
-                        <td class="col-3">{{employeeScheduleWeekList.MondayHours}}</td>
+                        <td class="col-3">
+                            <!--<input type="time" [(ngModel)]="eswl.MondayIn" name="MondayIn" (blur)="calHours()" class="form-control">-->
+                                          <dl-date-time-picker startView="day"
+                                                               maxView="year"
+                                                               minView="minute"
+                                                               minuteStep="5"
+                                                               [(ngModel)]="eswl.MondayIn">
+                                          </dl-date-time-picker>
+                        </td>
+                        <td class="col-3"><input type="time" [(ngModel)]="eswl.MondayOut" name="MondayOut" (blur)="calHours()" class="form-control"></td>
+                        <td class="col-3">{{eswl.MondayHours}}</td>
                     </tr>
                     <tr class="row">
                         <td class="col-3">Tuesday</td>
-                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.TuesdayIn" class="form-control"></td>
-                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.TuesdayOut" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="eswl.TuesdayIn" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="eswl.TuesdayOut" class="form-control"></td>
                         <td class="col-3"></td>
                     </tr>
                     <tr class="row">
                         <td class="col-3">Wednesday</td>
-                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.WednesdayIn" class="form-control"></td>
-                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.WednesdayOut" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="eswl.WednesdayIn" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="eswl.WednesdayOut" class="form-control"></td>
                         <td class="col-3"></td>
                     </tr>
                     <tr class="row">
                         <td class="col-3">Thursday</td>
-                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.ThursdayIn" class="form-control"></td>
-                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.ThursdayOut" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="eswl.ThursdayIn" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="eswl.ThursdayOut" class="form-control"></td>
                         <td class="col-3"></td>
                     </tr>
                     <tr class="row">
                         <td class="col-3">Friday</td>
-                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.FridayIn" class="form-control"></td>
-                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.FridayOut" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="eswl.FridayIn" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="eswl.FridayOut" class="form-control"></td>
                         <td class="col-3"></td>
                     </tr>
                     <tr class="row">
                         <td class="col-3">Saturday</td>
-                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.SaturdayIn" class="form-control"></td>
-                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.SaturdayOut" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="eswl.SaturdayIn" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="eswl.SaturdayOut" class="form-control"></td>
                         <td class="col-3"></td>
                     </tr>
                     <tr class="row">
                         <td class="col-3">Sunday</td>
-                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.SundayIn" class="form-control"></td>
-                        <td class="col-3"><input type="time" [(ngModel)]="employeeScheduleWeekList.SundayOut" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="eswl.SundayIn" class="form-control"></td>
+                        <td class="col-3"><input type="time" [(ngModel)]="eswl.SundayOut" class="form-control"></td>
                         <td class="col-3"></td>
                     </tr>
                     <tr class="row">

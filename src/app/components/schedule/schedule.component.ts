@@ -16,7 +16,7 @@ export class ScheduleComponent implements OnInit {
     public startDate: string = "";
     public endDate: string = "";
     public employeeScheduleList: EmployeeSchedule;
-    public employeeScheduleWeekList: any = {
+    public eswl: any = {
         Id: 0,
         EmployeeScheduleId: 0,
         MondayIn: "",
@@ -67,10 +67,13 @@ export class ScheduleComponent implements OnInit {
     }
 
     calHours() {
-        console.log(this.scheduleForm.controls.MondayOut.value, this.scheduleForm.controls.MondayIn.value);
-        if (this.scheduleForm.controls.MondayOut.value != "" && this.scheduleForm.controls.MondayIn.value != "") {
-            //this.scheduleForm.controls.MondayHours.setValue(this.scheduleForm.controls.MondayOut.value - this.scheduleForm.controls.MondayIn.value);
-        }
+      
+        //if (this.eswl.MondayOut != "" && this.eswl.MondayOut != null && this.eswl.MondayIn != "" && this.eswl.MondayIn != null) {
+        //    this.eswl.MondayHours = this.eswl.MondayOut - this.eswl.MondayIn;
+        //}
+        //let intime: Date = new Date(this.eswl.MondayIn);
+        //let outtime = new Date(this.eswl.MondayOut);
+        console.log(Date.parse(this.eswl.MondayIn));
     }
 
     ngOnInit() {
@@ -82,24 +85,6 @@ export class ScheduleComponent implements OnInit {
     }
 
     public employees: Employee[];
-    public week1 = [
-        { day: "Monday", in1: "", out1: "", in2: "", out2: "", total: "" },
-        { day: "TuesDay", in1: "", out1: "", in2: "", out2: "", total: "" },
-        { day: "Wednesday", in1: "", out1: "", in2: "", out2: "", total: "" },
-        { day: "Thursday", in1: "", out1: "", in2: "", out2: "", total: "" },
-        { day: "Friday", in1: "", out1: "", in2: "", out2: "", total: "" },
-        { day: "Saturday", in1: "", out1: "", in2: "", out2: "", total: "" },
-        { day: "Sunday", in1: "", out1: "", in2: "", out2: "", total: "" }
-    ];
-    public week2 = [
-        { day: "Monday", in1: "", out1: "", in2: "", out2: "", total: "" },
-        { day: "TuesDay", in1: "", out1: "", in2: "", out2: "", total: "" },
-        { day: "Wednesday", in1: "", out1: "", in2: "", out2: "", total: "" },
-        { day: "Thursday", in1: "", out1: "", in2: "", out2: "", total: "" },
-        { day: "Friday", in1: "", out1: "", in2: "", out2: "", total: "" },
-        { day: "Saturday", in1: "", out1: "", in2: "", out2: "", total: "" },
-        { day: "Sunday", in1: "", out1: "", in2: "", out2: "", total: "" }
-    ];
 
     save() {
 
@@ -112,7 +97,6 @@ export class ScheduleComponent implements OnInit {
             this.employeeScheduleService.listFiltered("EmployeeId=" + this.scheduleForm.controls.EmployeeId.value)
                 .subscribe(r => {
                     this.employeeScheduleList = r[0];
-                    console.log(this.employeeScheduleList);
                     if (this.employeeScheduleList) {
                         this.isScheduleAvailable = true;
                         this.scheduleForm.controls.Id.setValue(this.employeeScheduleList.Id);
@@ -145,12 +129,11 @@ export class ScheduleComponent implements OnInit {
     }
 
     getEmployeeScheduleWeek(employeeScheduleId) {
-        console.log("EmployeeScheduleId=" + employeeScheduleId);
         this.employeeScheduleWeekService.listFiltered("EmployeeScheduleId=" + employeeScheduleId)
             .subscribe(s => {
                 if (s[0]) {
                     this.isScheduleWeekAvailable = true;
-                    this.employeeScheduleWeekList = s[0];
+                    this.eswl = s[0];
                 }
                 else {
                     this.isScheduleWeekAvailable = true;
@@ -174,7 +157,7 @@ export class ScheduleComponent implements OnInit {
                     }
                     this.employeeScheduleWeekService.create(itemj)
                         .subscribe(t => {
-                            this.employeeScheduleWeekList = t;
+                            this.eswl = t;
                         });
                 }
             });
