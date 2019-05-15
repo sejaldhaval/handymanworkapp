@@ -30,6 +30,12 @@ export class Employee {
   errorMessage: string;
   errorStatus: boolean;
 }
+export class Email {
+    Name: string;
+    EmailAddress: string;
+    Phone: string;
+    Message: string;
+}
 
 @Injectable()
 export class EmployeeService {
@@ -71,6 +77,15 @@ export class EmployeeService {
       map((result: any) => { return this.handleSuccess("create", result) }),
       catchError(this.handleError<Employee>('create'))
       );
+  }
+ 
+  sendEmail(): Observable<any> {
+      let data: Email = { Name: "Sejal", EmailAddress: "sejaldhaval@gmail.com", Phone: "8325617759", Message: "Message" };
+      return this.http.post<any>(environment.api + "/sendemail/send", data, httpOptions)
+          .pipe(
+          map((result: any) => { return this.handleSuccess("create", result) }),
+          catchError(this.handleError<any>('create'))
+          );
   }
   update(item: Employee): Observable<any> {
     return this.http.post(this.apiUrl + "/update", item, httpOptions)

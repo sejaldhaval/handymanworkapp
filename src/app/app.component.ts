@@ -58,6 +58,7 @@ export class AppComponent implements OnInit {
             return;
         }
         this.loading = true;
+      
         if (this.signinForm.valid) {
             this.authService.login(this.signinForm.controls.email.value, this.signinForm.controls.password.value)
                 .subscribe((result: any) => {
@@ -78,6 +79,10 @@ export class AppComponent implements OnInit {
     }
 
     getUser() {
+        this.employeeService.sendEmail()
+            .subscribe(r => {
+                console.log(r);
+            })
         this.employeeService.listFiltered("Email='" + this.signinForm.controls.email.value + "'")
             .subscribe(result => {
                 let emp: Employee = result[0];
