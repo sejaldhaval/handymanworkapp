@@ -44,69 +44,228 @@
             </div>
         </div>
     </div>
-    <div class="row" *ngIf="isScheduleAvailable">
-        <div class="col table-responsive">
-            <table class="table table-sm table-hover" style="min-width: 800px">
-                <thead>
-                    <tr class="row">
-                        <th class="col-3">Week</th>
-                        <th class="col-3">In</th>
-                        <th class="col-3">Out</th>
-                        <th class="col-3">Total Hours</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="row">
-                        <td class="col-3">Monday</td>
-                        <td class="col-3">
-                            <ngb-timepicker [(ngModel)]="eswl.MondayIn" [spinners]="false" [meridian]="true"></ngb-timepicker>      
-                        </td>
-                        <td class="col-3"><input type="time" [(ngModel)]="eswl.MondayOut" name="MondayOut" (blur)="calHours()" class="form-control"></td>
-                        <td class="col-3">{{eswl.MondayHours}}</td>
-                    </tr>
-                    <tr class="row">
-                        <td class="col-3">Tuesday</td>
-                        <td class="col-3"><input type="time" [(ngModel)]="eswl.TuesdayIn" class="form-control"></td>
-                        <td class="col-3"><input type="time" [(ngModel)]="eswl.TuesdayOut" class="form-control"></td>
-                        <td class="col-3"></td>
-                    </tr>
-                    <tr class="row">
-                        <td class="col-3">Wednesday</td>
-                        <td class="col-3"><input type="time" [(ngModel)]="eswl.WednesdayIn" class="form-control"></td>
-                        <td class="col-3"><input type="time" [(ngModel)]="eswl.WednesdayOut" class="form-control"></td>
-                        <td class="col-3"></td>
-                    </tr>
-                    <tr class="row">
-                        <td class="col-3">Thursday</td>
-                        <td class="col-3"><input type="time" [(ngModel)]="eswl.ThursdayIn" class="form-control"></td>
-                        <td class="col-3"><input type="time" [(ngModel)]="eswl.ThursdayOut" class="form-control"></td>
-                        <td class="col-3"></td>
-                    </tr>
-                    <tr class="row">
-                        <td class="col-3">Friday</td>
-                        <td class="col-3"><input type="time" [(ngModel)]="eswl.FridayIn" class="form-control"></td>
-                        <td class="col-3"><input type="time" [(ngModel)]="eswl.FridayOut" class="form-control"></td>
-                        <td class="col-3"></td>
-                    </tr>
-                    <tr class="row">
-                        <td class="col-3">Saturday</td>
-                        <td class="col-3"><input type="time" [(ngModel)]="eswl.SaturdayIn" class="form-control"></td>
-                        <td class="col-3"><input type="time" [(ngModel)]="eswl.SaturdayOut" class="form-control"></td>
-                        <td class="col-3"></td>
-                    </tr>
-                    <tr class="row">
-                        <td class="col-3">Sunday</td>
-                        <td class="col-3"><input type="time" [(ngModel)]="eswl.SundayIn" class="form-control"></td>
-                        <td class="col-3"><input type="time" [(ngModel)]="eswl.SundayOut" class="form-control"></td>
-                        <td class="col-3"></td>
-                    </tr>
-                    <tr class="row">
-                        <td class="col-10"><div class="d-flex float-right">Week1 Total Hours</div></td>
-                        <td class="col-2"><span>6</span></td>
-                    </tr>
-                </tbody>
-            </table>
+    <div *ngIf="isScheduleAvailable">
+        <div class="row">
+            <div class="col table-responsive">
+                <table class="table table-sm table-hover" style="min-width: 800px">
+                    <thead>
+                        <tr class="row">
+                            <th class="col-2">Week</th>
+                            <th class="col-2">In</th>
+                            <th class="col-2">Out</th>
+                            <th class="col-2">In</th>
+                            <th class="col-2">Out</th>
+                            <th class="col-2">Total Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="row">
+                            <td class="col-2">Monday</td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.MondayIn1.hour" (ngModelChange)="calDayHours('Monday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.MondayIn1.minute" (ngModelChange)="calDayHours('Monday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.MondayOut1.hour" (ngModelChange)="calDayHours('Monday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.MondayOut1.minute" (ngModelChange)="calDayHours('Monday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.MondayIn2.hour" (ngModelChange)="calDayHours('Monday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.MondayIn2.minute" (ngModelChange)="calDayHours('Monday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.MondayOut2.hour" (ngModelChange)="calDayHours('Monday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.MondayOut2.minute" (ngModelChange)="calDayHours('Monday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">{{eswl.MondayHours | number}}</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="col-2">Tuesday</td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.TuesdayIn1.hour" (ngModelChange)="calDayHours('Tuesday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.TuesdayIn1.minute" (ngModelChange)="calDayHours('Tuesday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.TuesdayOut1.hour" (ngModelChange)="calDayHours('Tuesday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.TuesdayOut1.minute" (ngModelChange)="calDayHours('Tuesday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.TuesdayIn2.hour" (ngModelChange)="calDayHours('Tuesday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.TuesdayIn2.minute" (ngModelChange)="calDayHours('Tuesday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.TuesdayOut2.hour" (ngModelChange)="calDayHours('Tuesday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.TuesdayOut2.minute" (ngModelChange)="calDayHours('Tuesday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">{{eswl.TuesdayHours | number}}</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="col-2">Wednesday</td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.WednesdayIn1.hour" (ngModelChange)="calDayHours('Wednesday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.WednesdayIn1.minute" (ngModelChange)="calDayHours('Wednesday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.WednesdayOut1.hour" (ngModelChange)="calDayHours('Wednesday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.WednesdayOut1.minute" (ngModelChange)="calDayHours('Wednesday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.WednesdayIn2.hour" (ngModelChange)="calDayHours('Wednesday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.WednesdayIn2.minute" (ngModelChange)="calDayHours('Wednesday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.WednesdayOut2.hour" (ngModelChange)="calDayHours('Wednesday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.WednesdayOut2.minute" (ngModelChange)="calDayHours('Wednesday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">{{eswl.WednesdayHours | number}}</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="col-2">Thursday</td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.ThursdayIn1.hour" (ngModelChange)="calDayHours('Thursday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.ThursdayIn1.minute" (ngModelChange)="calDayHours('Thursday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.ThursdayOut1.hour" (ngModelChange)="calDayHours('Thursday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.ThursdayOut1.minute" (ngModelChange)="calDayHours('Thursday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.ThursdayIn2.hour" (ngModelChange)="calDayHours('Thursday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.ThursdayIn2.minute" (ngModelChange)="calDayHours('Thursday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.ThursdayOut2.hour" (ngModelChange)="calDayHours('Thursday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.ThursdayOut2.minute" (ngModelChange)="calDayHours('Thursday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">{{eswl.ThursdayHours | number}}</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="col-2">Friday</td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.FridayIn1.hour" (ngModelChange)="calDayHours('Friday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.FridayIn1.minute" (ngModelChange)="calDayHours('Friday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.FridayOut1.hour" (ngModelChange)="calDayHours('Friday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.FridayOut1.minute" (ngModelChange)="calDayHours('Friday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.FridayIn2.hour" (ngModelChange)="calDayHours('Friday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.FridayIn2.minute" (ngModelChange)="calDayHours('Friday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.FridayOut2.hour" (ngModelChange)="calDayHours('Friday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.FridayOut2.minute" (ngModelChange)="calDayHours('Friday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">{{eswl.FridayHours | number}}</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="col-2">Saturday</td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.SaturdayIn1.hour" (ngModelChange)="calDayHours('Saturday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.SaturdayIn1.minute" (ngModelChange)="calDayHours('Saturday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.SaturdayOut1.hour" (ngModelChange)="calDayHours('Saturday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.SaturdayOut1.minute" (ngModelChange)="calDayHours('Saturday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.SaturdayIn2.hour" (ngModelChange)="calDayHours('Saturday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.SaturdayIn2.minute" (ngModelChange)="calDayHours('Saturday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.SaturdayOut2.hour" (ngModelChange)="calDayHours('Saturday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.SaturdayOut2.minute" (ngModelChange)="calDayHours('Saturday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">{{eswl.SaturdayHours | number}}</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="col-2">Sunday</td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.SundayIn1.hour" (ngModelChange)="calDayHours('Sunday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.SundayIn1.minute" (ngModelChange)="calDayHours('Sunday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.SundayOut1.hour" (ngModelChange)="calDayHours('Sunday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.SundayOut1.minute" (ngModelChange)="calDayHours('Sunday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.SundayIn2.hour" (ngModelChange)="calDayHours('Sunday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.SundayIn2.minute" (ngModelChange)="calDayHours('Sunday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">
+                                <div class="row">
+                                    <div class="col-6 pr-0"><input type="number" class="form-control" [(ngModel)]="eswl.SundayOut2.hour" (ngModelChange)="calDayHours('Sunday')" /></div>
+                                    <div class="col-6 pl-0"><input type="number" class="form-control" [(ngModel)]="eswl.SundayOut2.minute" (ngModelChange)="calDayHours('Sunday')" /></div>
+                                </div>
+                            </td>
+                            <td class="col-2">{{eswl.SundayHours | number}}</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="col-10"><div class="d-flex float-right">Total Hours</div></td>
+                            <td class="col-2"><span>{{eswl.TotalHours}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <!--<div class="row" style="height: 800px">
+            <full-calendar defaultView="timeGridWeek" visibleRange="visibleRange" [plugins]="calendarPlugins" today="false"></full-calendar>
+        </div>-->
     </div>
 </div>
 

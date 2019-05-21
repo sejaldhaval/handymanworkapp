@@ -12,24 +12,34 @@ const httpOptions = {
 export class EmployeeScheduleWeek {
     Id: number;
     EmployeeScheduleId: number;
-    MondayIn: string;
-    MondayOut: string;
-    TuesdayIn: string;
-    TuesdayOut: string;
-    WednesdayIn: string;
-    WednesdayOut: string;
-    ThursdayIn: string;
-    ThursdayOut: string;
-    FridayIn: string;
-    FridayOut: string;
-    SaturdayIn: string;
-    SaturdayOut: string;
-    SundayIn: string;
-    SundayOut: string;
-    CreatedOnUtc?: any;
-    UpdatedOnUtc?: any
-    errorMessage?: string;
-    errorStatus?: boolean;
+    MondayIn1: string;
+    MondayOut1: string;
+    MondayIn2: string;
+    MondayOut2: string;
+    TuesdayIn1: string;
+    TuesdayOut1: string;
+    TuesdayIn2: string;
+    TuesdayOut2: string;
+    WednesdayIn1: string;
+    WednesdayOut1: string;
+    WednesdayIn2: string;
+    WednesdayOut2: string;
+    ThursdayIn1: string;
+    ThursdayOut1: string;
+    ThursdayIn2: string;
+    ThursdayOut2: string;
+    FridayIn1: string;
+    FridayOut1: string;
+    FridayIn2: string;
+    FridayOut2: string;
+    SaturdayIn1: string;
+    SaturdayOut1: string;
+    SaturdayIn2: string;
+    SaturdayOut2: string;
+    SundayIn1: string;
+    SundayOut1: string;
+    SundayIn2: string;
+    SundayOut2: string;
 }
 
 @Injectable()

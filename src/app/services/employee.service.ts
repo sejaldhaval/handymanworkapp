@@ -81,7 +81,12 @@ export class EmployeeService {
  
   sendEmail(): Observable<any> {
       let data: Email = { Name: "Sejal", EmailAddress: "sejaldhaval@gmail.com", Phone: "8325617759", Message: "Message" };
-      return this.http.post<any>(environment.api + "/sendemail/send", data, httpOptions)
+
+      const httpOptions1 = {
+          headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      };
+
+      return this.http.post<any>(environment.api + "/sendemail/send", data, httpOptions1)
           .pipe(
           map((result: any) => { return this.handleSuccess("create", result) }),
           catchError(this.handleError<any>('create'))

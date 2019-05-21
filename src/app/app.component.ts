@@ -79,10 +79,6 @@ export class AppComponent implements OnInit {
     }
 
     getUser() {
-        this.employeeService.sendEmail()
-            .subscribe(r => {
-                console.log(r);
-            })
         this.employeeService.listFiltered("Email='" + this.signinForm.controls.email.value + "'")
             .subscribe(result => {
                 let emp: Employee = result[0];
