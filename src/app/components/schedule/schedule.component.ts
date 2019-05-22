@@ -112,7 +112,7 @@ export class ScheduleComponent implements OnInit {
         }
         //}
         //if (this.eswl[dayIn1] != null && this.eswl[dayOut1] != null && this.eswl[dayIn2] != null && this.eswl[dayOut2] != null) {
-        this.eswl[dayHours] = parseFloat(M1h + M2h).toFixed(2);
+        this.eswl[dayHours] = M1h + M2h;
         //}
         this.calTotalHours();
     }
