@@ -34,7 +34,25 @@ export class AppComponent implements OnInit {
     @ViewChild('sidenav') sidenav: MatSidenav;
 
     ngOnInit() {
+        if (localStorage.getItem("userToken") == null) {
 
+        }
+        else {
+            if (localStorage.getItem("UserId") == null) {
+
+            }
+            else {
+                let u: any = localStorage.getItem("UserId");
+                this.employeeService.get(u)
+                    .subscribe(result => {
+                        let emp: Employee = result;
+                        let empId: any = emp.Id;
+                        localStorage.setItem("UserId", empId);
+                        this.loggedIn = true;
+                        this.getMenuItems(emp);
+                    });
+            }
+        }
     }
 
     navigateToPath(url) {
@@ -58,7 +76,7 @@ export class AppComponent implements OnInit {
             return;
         }
         this.loading = true;
-      
+
         if (this.signinForm.valid) {
             this.authService.login(this.signinForm.controls.email.value, this.signinForm.controls.password.value)
                 .subscribe((result: any) => {
@@ -85,29 +103,32 @@ export class AppComponent implements OnInit {
                 let empId: any = emp.Id;
                 localStorage.setItem("UserId", empId);
                 this.loggedIn = true;
+                let u: any = localStorage.getItem("UserId");
+                this.getMenuItems(u);
+            });
+    }
 
-                var menus = [];
-                let activemenuIds: string = "";
-                this.menuoptionsService.listFiltered("IsActive=1")
-                    .subscribe(activemenuitems => {
-                        activemenuitems.forEach((activeitem, index) => {
-                            activemenuIds = activemenuIds + "," + activeitem.Id;
-                        });
-                        activemenuIds = activemenuIds.substring(1);
-                        this.userrolesmenuoptionsmappingService.listFiltered("UserRoleId=" + emp.RoleId + " AND MenuOptionId IN (" + activemenuIds + ")")
-                            .subscribe(menus => {
-                                this.menu = menus;
-                                if (emp.DefaultMenuId != 0) {
-                                    this.router.navigateByUrl("/" + emp.DefaultMenuName);
-                                }
-                                else {
-                                    if (window.innerWidth <= 575) {
-                                        this.sidenav.toggle();
-                                    }
-                                }
-                            });
+    getMenuItems(emp: Employee) {
+        var menus = [];
+        let activemenuIds: string = "";
+        this.menuoptionsService.listFiltered("IsActive=1")
+            .subscribe(activemenuitems => {
+                activemenuitems.forEach((activeitem, index) => {
+                    activemenuIds = activemenuIds + "," + activeitem.Id;
+                });
+                activemenuIds = activemenuIds.substring(1);
+                this.userrolesmenuoptionsmappingService.listFiltered("UserRoleId=" + emp.RoleId + " AND MenuOptionId IN (" + activemenuIds + ")")
+                    .subscribe(menus => {
+                        this.menu = menus;
+                        if (emp.DefaultMenuId != 0) {
+                            this.router.navigateByUrl("/" + emp.DefaultMenuName);
+                        }
+                        else {
+                            if (window.innerWidth <= 575) {
+                                this.sidenav.toggle();
+                            }
+                        }
                     });
-
             });
     }
 }
